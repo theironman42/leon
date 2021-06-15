@@ -1,0 +1,29 @@
+{
+  "name": "leonsite",
+  "version": "1.0.0",
+  "description": "E COMMERCE",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theironman42/leon.git"
+  },
+  "author": "QVB",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/theironman42/leon/issues"
+  },
+  "homepage": "https://github.com/theironman42/leon#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.14"
+  }
+}
