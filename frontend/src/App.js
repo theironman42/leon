@@ -3,7 +3,7 @@ import axios from 'axios'
 import Navbar from './Screens/NavBar'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Store from './Screens/Store'
-import StampsAdmin from './Screens/Admin/StampsAdmin'
+import StampsAdmin from './Screens/Admin/StampAdmin'
 
 function App() {
 

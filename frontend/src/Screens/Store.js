@@ -4,7 +4,7 @@ import { getData } from '../Utils/backend'
 function Store() {
     const [stamps, setStamps] = useState([])
     useEffect(() => {
-        getData("/api/stamps", setStamps)
+        getData("/api/stamps").then(res => setStamps(res.data))
     }, [setStamps])
     return (
         <div>
