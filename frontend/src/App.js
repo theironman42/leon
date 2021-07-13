@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import Home from './Screens/Home'
-import { BrowserRouter } from 'react-router-dom'
+import Navbar from './Screens/NavBar'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Store from './Screens/Store'
+import StampsAdmin from './Screens/Admin/StampsAdmin'
 
 function App() {
 
-  const [val, setVal] = useState()
-  useEffect(() => {
-    axios.get('/test').then((res) => setVal(res.data))
-  }, [])
 
   return (
     <>
-      <h1>Welcome to victoire 1</h1>
-      {val}
+
       <BrowserRouter>
-      <Home></Home>
+        <Navbar />
+        <Switch>
+          
+          <Route path="/admin/stamps"><StampsAdmin /></Route>
+          <Route path="/"><Store /></Route>
+
+        </Switch>
       </BrowserRouter>
-      
+
     </>
   );
 }

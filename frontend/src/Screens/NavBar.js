@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     },
   });
 
-function Home() {
+function Navbar() {
 
     const classes = useStyles()
 
@@ -32,4 +32,4 @@ function Home() {
     )
 }
 
-export default Home
+export default Navbar

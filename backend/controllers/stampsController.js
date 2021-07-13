@@ -3,17 +3,22 @@ import Stamp from '../models/stampModel.js'
 
 //GET gets stamps in database
 //TODO make it work with a query (nb of items per page ...)
-// @route GET /api/products
+// @route GET /api/stamps
 const getStamps = asyncHandler(async (req, res) =>{
     const stamps = await Stamp.find({})
     res.json(stamps)
 })
 
+//POST add a stamp to the db
+// @route /api/stamps
 const addStamp = asyncHandler(async (req, res) =>{
     const { name, image, country, description, price } = req.body
     const stamp = await Stamp.create({ name, image, country, description, price })
-    res.status(200).json()
+    res.status(200).json(stamp)
 })
+
+//DELETE delete a stamp from db by id
+// @route /api/stamps/:id
 
 const deleteStamp = asyncHandler(async (req, res) =>{
     const {id} = req.params
@@ -27,6 +32,9 @@ const deleteStamp = asyncHandler(async (req, res) =>{
         throw new Error("Stamp not found")
     }
 })
+
+//PUT change a stamps attributes
+// @route /api/stamps/:id
 
 const updateStamp = asyncHandler(async (req, res) =>{
     const {id} = req.params
