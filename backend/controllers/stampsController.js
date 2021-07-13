@@ -6,7 +6,7 @@ import Stamp from '../models/stampModel.js'
 // @route GET /api/stamps
 const getStamps = asyncHandler(async (req, res) => {
     const stamps = await Stamp.find({})
-    const data = { "data": stamps, total: stamps.length, page: 2 }
+    const data = { "data": stamps, total: stamps.length, page: 0 }
     res.status(200).json(data)
 })
 

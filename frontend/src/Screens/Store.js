@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { getData } from '../Utils/backend'
+import StampsAdmin from './Admin/StampAdmin'
 
 function Store() {
-    const [stamps, setStamps] = useState([])
-    useEffect(() => {
-        getData("/api/stamps").then(res => setStamps(res.data))
-    }, [setStamps])
+
     return (
         <div>
-            {stamps.map((stamp, index)=>{
-                return (
-                    <p>
-                        {stamp.name}
-                    </p>
-                )
-            })}
+            <StampsAdmin />
         </div>
     )
 }

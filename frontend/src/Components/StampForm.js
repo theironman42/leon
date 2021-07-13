@@ -4,15 +4,24 @@ import { useForm } from "react-hook-form"
 import { ControlTextField } from './ControlFields'
 import { postData } from '../Utils/backend'
 
-const defaultValues = {
 
-}
 
-function StampForm() {
-    const { handleSubmit, control, formState:{ errors} } = useForm({ defaultValues })
-    const onSubmit = data => { postData('/api/stamps', data); console.log(data) }
+function StampForm({
+    data,
+    //onClose,
+    isNew,
+    onUpdate,
+}) {
+    const defaultValues = {
+        name: data ? data.name : "",
+        image: data ? data.image : "",
+        country: data ? data.country : "",
+        description: data ? data.description : "",
+        price: data ? data.price : ""
+    }
+    const { handleSubmit, control, formState: { errors }, setValue } = useForm({ defaultValues })
+    const onSubmit = data => { onUpdate(data) }
 
-    
     console.log(errors)
     return (
         <Container>
