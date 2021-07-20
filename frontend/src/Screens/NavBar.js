@@ -24,7 +24,6 @@ function Navbar() {
                 <Toolbar>
                     <Link to="/"><Typography className={classes.menuItem}>Home</Typography></Link>
                     <Link to="/test"><Typography className={classes.menuItem}>Expertising</Typography></Link>
-                    <Link to="/test"><Typography className={classes.menuItem}>Shop</Typography></Link>
                     <Link to="/test"><Typography className={classes.menuItem}>Contact</Typography></Link>
                     <Link to="/admin/stamps"><Typography className={classes.menuItem}>Admin</Typography></Link>
                 </Toolbar>

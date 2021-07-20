@@ -17,6 +17,10 @@ const stampSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    reference: {
+        type: String,
+        required: true,
+    },
     price: {
         type: Number,
         required: true,

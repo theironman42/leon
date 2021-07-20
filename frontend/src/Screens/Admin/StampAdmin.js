@@ -78,7 +78,7 @@ function StampsAdmin() {
                 })}
 
                 options={{
-                    pageSize: 50,
+                    pageSize: 20,
                     search: false,
                     actionsColumnIndex: -1,
                 }}

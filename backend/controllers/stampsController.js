@@ -47,6 +47,7 @@ const updateStamp = asyncHandler(async (req, res) => {
         stamp.country = req.body.country || stamp.country
         stamp.description = req.body.description || stamp.description
         stamp.price = req.body.price || stamp.price
+        stamp.reference = req.body.reference || stamp.reference
         const updatedStamp = await stamp.save()
         res.status(200).json(updatedStamp)
         console.log(updatedStamp)

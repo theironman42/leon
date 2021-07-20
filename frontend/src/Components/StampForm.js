@@ -28,7 +28,8 @@ function StampForm({
         image: data ? data.image : "",
         country: data ? data.country : "",
         description: data ? data.description : "",
-        price: data ? data.price : ""
+        price: data ? data.price : "",
+        reference: data ? data.reference : ""
     }
     const { handleSubmit, control, formState: { errors } } = useForm({ defaultValues })
     const onSubmit = data => { onClose(); onUpdate(data) }
@@ -44,6 +45,9 @@ function StampForm({
                     </Grid>
                     <Grid item xs={12}>
                         <ControlTextField name="image" control={control} label="Image" fullWidth={true} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <ControlTextField name="reference" control={control} label="Ref" fullWidth={true} />
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <ControlTextField name="country" control={control} label="Country" fullWidth={true} />
