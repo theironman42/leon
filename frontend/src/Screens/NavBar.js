@@ -22,7 +22,7 @@ function Navbar() {
         <div>
             <Container maxWidth="lg">
                 <Toolbar>
-                    <Link to="/test"><Typography className={classes.menuItem}>Home</Typography></Link>
+                    <Link to="/"><Typography className={classes.menuItem}>Home</Typography></Link>
                     <Link to="/test"><Typography className={classes.menuItem}>Expertising</Typography></Link>
                     <Link to="/test"><Typography className={classes.menuItem}>Shop</Typography></Link>
                     <Link to="/test"><Typography className={classes.menuItem}>Contact</Typography></Link>
