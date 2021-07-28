@@ -3,6 +3,7 @@ import React from 'react'
 import { useForm } from "react-hook-form"
 import { ControlTextField } from './ControlFields'
 import { postData } from '../Utils/backend'
+import Dropzone from './Dropzone'
 
 const useStyles = makeStyles({
     buttonsBox: {
@@ -57,6 +58,9 @@ function StampForm({
                     </Grid>
                     <Grid item xs={12}>
                         <ControlTextField name="description" control={control} label="Description" fullWidth={true} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Dropzone />
                     </Grid>
                 </Grid>
                 <Box className={classes.buttonsBox}>

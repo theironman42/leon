@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 
 function StampsAdmin() {
 
-    const [openDialog, setOpenDialog] = useState()
+    const [openDialog, setOpenDialog] = useState(false)
 
     const classes = useStyles()
     const tableRef = useRef();
@@ -36,7 +36,7 @@ function StampsAdmin() {
 
     return (
         <div>
-            <Dialog onClose={handleClose} open={openDialog} maxWidth={'md'} fullWidth>
+            <Dialog onClose={() => { setOpenDialog(false) }} open={openDialog} maxWidth={'md'} fullWidth>
                 <div className={classes.dialog}>
                     <StampForm onClose={handleClose} onUpdate={saveData} />
                 </div>
