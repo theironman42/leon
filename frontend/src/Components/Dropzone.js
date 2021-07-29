@@ -1,13 +1,29 @@
 import { IconButton } from '@material-ui/core';
 import React, {useEffect, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
-import ClearIcon from '@material-ui/icons/Clear';
-
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { gray } from 'colors';
 const thumbsContainer = {
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
   marginTop: 16
+};
+
+const style = {
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: '20px',
+  borderWidth: 2,
+  borderRadius: 2,
+  borderColor: '#2196f3',
+  borderStyle: 'dashed',
+  backgroundColor: '#fafafa',
+  color: '#bdbdbd',
+  outline: 'none',
+  transition: 'border .24s ease-in-out'
 };
 
 const thumb = {
@@ -26,19 +42,25 @@ const thumbInner = {
   position: 'relative',
   display: 'flex',
   minWidth: 0,
-  overflow: 'hidden'
+  overflow: 'hidden',
+  marginRight: 'auto',
+  marginLeft: 'auto'
 };
 
 const img = {
   display: 'block',
   width: 'auto',
-  height: '100%'
+  height: '100%',
+  
 };
 
 const icon = {
   position: 'absolute',
-  right: '-20px',
-  top: '-20px'
+  right: '50%',
+  top: '50%',
+  margin:'-24px -24px -15px 0px',
+  backgroundColor: '#e3e0d8',
+  opacity: 0.5
 }
 
 export default function Dropzone(props) {
@@ -57,9 +79,8 @@ export default function Dropzone(props) {
   const thumbs = files.map((file, i) => (
     <div style={thumb} key={file.name}>
       <div style={thumbInner}>
-        {i}
         <IconButton style={icon} onClick={() => {const ar = files; ar.splice(i, 1); setFiles([...ar]); console.log(i, ar)} }>
-          <ClearIcon />          
+          <DeleteForeverIcon />          
         </IconButton>
         <img 
           src={file.preview}
@@ -76,8 +97,8 @@ export default function Dropzone(props) {
 
   return (
     <section className="container">
-      <div {...getRootProps({className: 'dropzone'})}>
-        <input {...getInputProps()} />
+      <div {...getRootProps({className: 'dropzone', style})} >
+        <input  {...getInputProps()}  />
         <p>Drag 'n' drop some files here, or click to select files</p>
       </div>
       <aside style={thumbsContainer}>
