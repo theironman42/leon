@@ -13,8 +13,8 @@ const getStamps = asyncHandler(async (req, res) => {
 //POST add a stamp to the db
 // @route /api/stamps
 const addStamp = asyncHandler(async (req, res) => {
-    const { name, image, country, description, price } = req.body
-    const stamp = await Stamp.create({ name, image, country, description, price })
+    const { name, image, country, description, price, reference } = req.body
+    const stamp = await Stamp.create({ name, image, country, description, price, reference })
     res.status(200).json(stamp)
 })
 

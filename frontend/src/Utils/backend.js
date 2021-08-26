@@ -5,11 +5,9 @@ export function getData(url) {
       
 }
 
-export function postData(url, data, callback) {
-    axios
+export function postData(url, data) {
+    return axios
       .post(url, data)
-      .then(res => {if(callback) callback(res.data)})
-      .catch(err => console.error(err));
 }
 
 export function putData(url, data, callback) {

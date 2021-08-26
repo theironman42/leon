@@ -2,7 +2,6 @@ import { Box, Button, Container, Grid, makeStyles } from '@material-ui/core'
 import React from 'react'
 import { useForm } from "react-hook-form"
 import { ControlTextField } from './ControlFields'
-import { postData } from '../Utils/backend'
 import Dropzone from './Dropzone'
 
 const useStyles = makeStyles({

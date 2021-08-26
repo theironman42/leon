@@ -32,7 +32,7 @@ function StampsAdmin() {
 
     const handleClose = () => { setOpenDialog(false) }
 
-    const saveData = (data) => { postData('/api/stamps', data) }
+    const saveData = (data) => { postData('/api/stamps', data).then(()=>refreshTable()) }
 
     return (
         <div>
