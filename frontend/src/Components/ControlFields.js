@@ -1,5 +1,7 @@
 import { TextField } from "@material-ui/core"
 import { Controller } from "react-hook-form"
+import Dropzone from './Dropzone'
+
 
 export const ControlTextField = ({ name, control, required, ...props }) => {
     console.log(required)
@@ -11,3 +13,13 @@ export const ControlTextField = ({ name, control, required, ...props }) => {
         render={({ field }) => <TextField {...field} {...props} />}
     />
 }
+
+// export const ControlDropzone = ({name, control, required, ...props}) =>{
+//     return <Controller
+//         name={name}
+//         defaultValue=""
+//         control={control}
+//         rules={{ required:required }}
+//         render={()=><Dropzone {...props} />}
+//     />
+// }
