@@ -1,46 +1,6 @@
-// import { IconButton } from '@material-ui/core';
-// import React, {useEffect, useState} from 'react';
-// import {useDropzone} from 'react-dropzone';
-// import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-
-
-// export default function Dropzone(props) {
-//   const [files, setFiles] = useState([]);
-//   const {getRootProps, getInputProps} = useDropzone({
-//     accept: 'image/*',
-//     onDrop: acceptedFiles => {
-//       console.log(acceptedFiles)
-//       acceptedFiles.push(...files)
-//       setFiles(acceptedFiles.map(file => Object.assign(file, {
-//         preview: URL.createObjectURL(file)
-//       })));
-//     }
-//   });
-
-
-
-//   useEffect(() => () => {
-//     // Make sure to revoke the data uris to avoid memory leaks
-//     files.forEach(file => URL.revokeObjectURL(file.preview));
-//   }, [files]);
-
-//   return (
-//     <section className="container">
-//       <div {...getRootProps({className: 'dropzone', style})} >
-//         <input  {...getInputProps()}  />
-//         <p>Drag 'n' drop some files here, or click to select files</p>
-//       </div>
-//       <aside style={thumbsContainer}>
-//         {thumbs}
-//       </aside>
-//     </section>
-//   );
-// }
-
 import React, { useCallback, useEffect } from "react"
 import { useDropzone } from "react-dropzone"
 import { useFormContext } from "react-hook-form"
-import { gray } from 'colors';
 import { IconButton } from '@material-ui/core';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
@@ -105,13 +65,6 @@ const icon = {
   opacity: 0.5
 }
 
-
-
-
-
-
-
-
 const Dropzone = props => {
   const { name, label = name } = props
   const { register, unregister, setValue, watch } = useFormContext()
@@ -147,6 +100,7 @@ const Dropzone = props => {
         <img
           src={file.preview}
           style={img}
+          alt="product"
         />
       </div>
     </div>
@@ -168,46 +122,7 @@ const Dropzone = props => {
     </section>
   );
 
-  // return (
-  //     <>
-  //         <label className=" " htmlFor={name}>
-  //             {label}
-  //         </label>
-  //         <div
-  //             {...getRootProps()}
-  //             type="file"
-  //             role="button"
-  //             aria-label="File Upload"
-  //             id={name}
-  //         >
-  //             <input {...props} {...getInputProps()} />
-  //             <div
-  //                 style={{ width: "500px", border: "black solid 2px" }}
-  //                 className={" " + (isDragActive ? " " : " ")}
-  //             >
-  //                 <p className=" ">Drop the files here ...</p>
 
-  //                 {!!files?.length && (
-  //                     <div className=" ">
-  //                         {files.map(file => {
-  //                             return (
-  //                                 <div key={file.name}>
-  //                                     <img
-  //                                         src={URL.createObjectURL(file)}
-  //                                         alt={file.name}
-  //                                         style={{
-  //                                             height: "200px",
-  //                                         }}
-  //                                     />
-  //                                 </div>
-  //                             )
-  //                         })}
-  //                     </div>
-  //                 )}
-  //             </div>
-  //         </div>
-  //     </>
-  // )
 }
 
 export default Dropzone
