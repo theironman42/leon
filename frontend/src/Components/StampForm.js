@@ -1,7 +1,7 @@
 import { Box, Button, Container, Grid, makeStyles } from '@material-ui/core'
 import React from 'react'
 import { useFormContext, useForm, FormProvider } from "react-hook-form"
-import { ControlDropzone, ControlTextField } from './ControlFields'
+import { ControlTextField } from './ControlFields'
 import Dropzone from './Dropzone'
 
 const useStyles = makeStyles({
@@ -33,7 +33,7 @@ function StampForm({
     }
     const methods = useForm({ defaultValues })
     const { handleSubmit, control, formState: { errors } } = methods
-    const onSubmit = data => { console.log(data); onClose(); onUpdate(data) }
+    const onSubmit = data => { onClose(); onUpdate(data) }
 
     console.log(errors)
     return (
@@ -61,10 +61,10 @@ function StampForm({
                             <ControlTextField name="description" control={control} label="Description" fullWidth={true} />
                         </Grid>
                         <Grid item xs={12}>
-                            <Dropzone 
-                            name="files" 
-                            accept="image/png, image/jpg, image/jpeg, image/gif"
-                            label="File Upload" />
+                            <Dropzone
+                                name="files"
+                                accept="image/png, image/jpg, image/jpeg"
+                            />
                         </Grid>
                     </Grid>
                     <Box className={classes.buttonsBox}>

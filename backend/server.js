@@ -1,8 +1,10 @@
+import path from 'path'
 import express from 'express'
 import dotenv from "dotenv"
 import connectDB from './config/db.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 import stampRoutes from './routes/stampRoutes.js'
+import uploadRoutes from './routes/uploadRoutes.js'
 
 dotenv.config()
 connectDB()
@@ -18,6 +20,10 @@ app.get('/', (req, res) => {
 
 
 app.use('/api/stamps', stampRoutes)
+app.use('/api/upload', uploadRoutes)
+
+const __dirname = path.resolve()
+app.use('/image', express.static(path.join(__dirname, '/uploads')))
 
 
 //Middleware use DO NOT PUT IT BEFORE OTHER ROUTES

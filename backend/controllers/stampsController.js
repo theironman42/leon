@@ -24,7 +24,6 @@ const addStamp = asyncHandler(async (req, res) => {
 const deleteStamp = asyncHandler(async (req, res) => {
     const { id } = req.params
     const stamp = await Stamp.findById(id)
-    console.log(id, stamp)
     if (stamp) {
         stamp.delete()
         res.status(200).json(stamp)
@@ -40,7 +39,6 @@ const deleteStamp = asyncHandler(async (req, res) => {
 const updateStamp = asyncHandler(async (req, res) => {
     const { id } = req.params
     const stamp = await Stamp.findById(id)
-    console.log(id, stamp)
     if (stamp) {
         stamp.name = req.body.name || stamp.name
         stamp.image = req.body.image || stamp.image
@@ -50,7 +48,6 @@ const updateStamp = asyncHandler(async (req, res) => {
         stamp.reference = req.body.reference || stamp.reference
         const updatedStamp = await stamp.save()
         res.status(200).json(updatedStamp)
-        console.log(updatedStamp)
     } else {
         res.status(404)
         throw new Error("Stamp not found")

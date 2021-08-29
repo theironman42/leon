@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone"
 import { useFormContext } from "react-hook-form"
 import { IconButton } from '@material-ui/core';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-
+import axios from 'axios'
 
 const thumbsContainer = {
   display: 'flex',
@@ -65,16 +65,29 @@ const icon = {
   opacity: 0.5
 }
 
+const uploadImage = (imagefile) => {
+  var formData = new FormData();
+  formData.append("image", imagefile);
+  axios.post('/api/upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+}
+
 const Dropzone = props => {
-  const { name, label = name } = props
+  const { name } = props
   const { register, unregister, setValue, watch } = useFormContext()
   const files = watch(name)
   const onDrop = useCallback(
     (droppedFiles) => {
       const newFiles = (!!files?.length && [...files].concat(droppedFiles)) || droppedFiles;
-      newFiles.map(file => Object.assign(file, {
-                preview: URL.createObjectURL(file)
-              }))
+      newFiles.map(file => {
+        uploadImage(file)
+        return Object.assign(file, {
+          preview: URL.createObjectURL(file)
+        })
+      })
       setValue(name, newFiles, { shouldValidate: true });
     },
     [setValue, name, files],
@@ -94,7 +107,7 @@ const Dropzone = props => {
   const thumbs = files && files.map((file, i) => (
     <div style={thumb} key={file.name}>
       <div style={thumbInner}>
-        <IconButton style={icon} onClick={() => { const ar = files; ar.splice(i, 1); setValue(name, [...ar], { shouldValidate: true }); console.log(i, ar) }}>
+        <IconButton style={icon} onClick={() => { const ar = files; ar.splice(i, 1); setValue(name, [...ar], { shouldValidate: true }); }}>
           <DeleteForeverIcon />
         </IconButton>
         <img
@@ -116,7 +129,6 @@ const Dropzone = props => {
         <p>Drag 'n' drop some files here, or click to select files</p>
       </div>
       <aside style={thumbsContainer}>
-        {console.log(files)}
         {thumbs}
       </aside>
     </section>

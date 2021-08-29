@@ -1,0 +1,1 @@
+This file makes sure that de directory is added to the git repository
