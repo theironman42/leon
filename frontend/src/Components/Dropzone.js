@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { useFormContext } from "react-hook-form"
 import { IconButton } from '@material-ui/core';
@@ -65,30 +65,26 @@ const icon = {
   opacity: 0.5
 }
 
-const uploadImage = (imagefile) => {
-  var formData = new FormData();
-  formData.append("image", imagefile);
-  axios.post('/api/upload', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  })
-}
+
 
 const Dropzone = props => {
   const { name } = props
   const { register, unregister, setValue, watch } = useFormContext()
   const files = watch(name)
+
+  const [imagesLink, setImagesLink] = useState([])
+
   const onDrop = useCallback(
     (droppedFiles) => {
-      const newFiles = (!!files?.length && [...files].concat(droppedFiles)) || droppedFiles;
-      newFiles.map(file => {
-        uploadImage(file)
-        return Object.assign(file, {
-          preview: URL.createObjectURL(file)
-        })
-      })
-      setValue(name, newFiles, { shouldValidate: true });
+      // const newFiles = (!!files?.length && [...files].concat(droppedFiles)) || droppedFiles;
+      // newFiles.map(file => {
+      //   uploadImage(file)
+      //   return Object.assign(file, {
+      //     preview: URL.createObjectURL(file)
+      //   })
+      // })
+      //setValue(name, newFiles, { shouldValidate: true });
+      droppedFiles.map(file => uploadImage(file))
     },
     [setValue, name, files],
   );
@@ -96,6 +92,18 @@ const Dropzone = props => {
     onDrop,
     accept: props.accept,
   })
+
+  const uploadImage = (imagefile) => {
+    var formData = new FormData();
+    formData.append("image", imagefile);
+    axios.post('/api/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((res)=>setImagesLink([res.data, ...imagesLink]))
+  }
+
+
   useEffect(() => {
     register(name)
     return () => {
@@ -104,14 +112,14 @@ const Dropzone = props => {
   }, [register, unregister, name])
 
 
-  const thumbs = files && files.map((file, i) => (
-    <div style={thumb} key={file.name}>
+  const thumbs = imagesLink.length && imagesLink.map((file, i) => (
+    <div style={thumb} key={i}>
       <div style={thumbInner}>
-        <IconButton style={icon} onClick={() => { const ar = files; ar.splice(i, 1); setValue(name, [...ar], { shouldValidate: true }); }}>
+        <IconButton style={icon} onClick={() => { const ar = imagesLink; ar.splice(i, 1); setImagesLink([...ar]); /*setValue(name, [...ar], { shouldValidate: true });*/ }}>
           <DeleteForeverIcon />
         </IconButton>
         <img
-          src={file.preview}
+          src={file}
           style={img}
           alt="product"
         />
