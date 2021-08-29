@@ -112,7 +112,7 @@ const Dropzone = props => {
   }, [register, unregister, name])
 
 
-  const thumbs = imagesLink.length && imagesLink.map((file, i) => (
+  const thumbs = imagesLink.length > 0 && imagesLink.map((file, i) => (
     <div style={thumb} key={i}>
       <div style={thumbInner}>
         <IconButton style={icon} onClick={() => { const ar = imagesLink; ar.splice(i, 1); setImagesLink([...ar]); /*setValue(name, [...ar], { shouldValidate: true });*/ }}>
