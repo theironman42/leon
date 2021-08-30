@@ -1,5 +1,5 @@
 import { Box, Button, Container, Grid, makeStyles } from '@material-ui/core'
-import React from 'react'
+import React, { useState } from 'react'
 import { useFormContext, useForm, FormProvider } from "react-hook-form"
 import { ControlTextField } from './ControlFields'
 import Dropzone from './Dropzone'
@@ -30,11 +30,17 @@ function StampForm({
         price: data ? data.price : "",
         reference: data ? data.reference : ""
     }
+    const [images, setImages] = useState((data && data.images && data.images.length && data.images) || [] )
     const methods = useForm({ defaultValues })
     const { handleSubmit, control, formState: { errors } } = methods
-    const onSubmit = data => { onClose(); onUpdate({images: ["&","é"], ...data}) }
+    const onSubmit = data => { onClose(); onUpdate({images: images, ...data}) }
 
-    console.log(errors)
+    const imageHandler = (data) =>{
+
+        console.log("UPDATED", "CURRENT :", data, "PREVIOUS :", images)
+        setImages(data)
+    }
+
     return (
         <Container>
             <h1>Stamp Form</h1>
@@ -60,6 +66,8 @@ function StampForm({
                             <Dropzone
                                 name="files"
                                 accept="image/png, image/jpg, image/jpeg"
+                                onUpdate={imageHandler}
+                                imagesLinks={images}
                             />
                         </Grid>
                     </Grid>

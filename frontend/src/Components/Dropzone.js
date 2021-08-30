@@ -67,12 +67,10 @@ const icon = {
 
 
 
-const Dropzone = props => {
-  const { name } = props
+const Dropzone = ({ name, imagesLinks, onUpdate, ...props })  => {
   const { register, unregister, setValue, watch } = useFormContext()
   const files = watch(name)
-
-  const [imagesLink, setImagesLink] = useState([])
+  //const [imagesLink, setImagesLink] = useState([])
 
   const onDrop = useCallback(
     (droppedFiles) => {
@@ -87,14 +85,13 @@ const Dropzone = props => {
   })
 
   const uploadImage = (imagefile) => {
-    console.log(imagesLink)
     var formData = new FormData();
     imagefile.forEach((file, i)=>{formData.append("image"+i, file);})
     axios.post('/api/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    }).then((res)=>{console.log(res.data); setImagesLink([...res.data, ...imagesLink])})
+    }).then((res)=>{onUpdate([...res.data, ...imagesLinks])})
   }
 
 
@@ -106,14 +103,13 @@ const Dropzone = props => {
   }, [register, unregister, name])
 
 
-  const thumbs = imagesLink.length > 0 && imagesLink.map((file, i) => (
+  const thumbs = imagesLinks.length > 0 && imagesLinks.map((file, i) => (
     
     <div style={thumb} key={i}>
       <div style={thumbInner}>
-        <IconButton style={icon} onClick={() => { const ar = imagesLink; ar.splice(i, 1); setImagesLink([...ar]); /*setValue(name, [...ar], { shouldValidate: true });*/ }}>
+        <IconButton style={icon} onClick={() => { const ar = [...imagesLinks]; ar.splice(i, 1); onUpdate([...ar]); /*setValue(name, [...ar], { shouldValidate: true });*/ }}>
           <DeleteForeverIcon />
         </IconButton>
-        {console.log(file, imagesLink.length)}
         <img
           src={file}
           style={img}
