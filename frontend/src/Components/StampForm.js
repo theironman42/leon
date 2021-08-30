@@ -25,7 +25,6 @@ function StampForm({
     const classes = useStyles()
     const defaultValues = {
         name: data ? data.name : "",
-        image: data ? data.image : "",
         country: data ? data.country : "",
         description: data ? data.description : "",
         price: data ? data.price : "",
@@ -33,7 +32,7 @@ function StampForm({
     }
     const methods = useForm({ defaultValues })
     const { handleSubmit, control, formState: { errors } } = methods
-    const onSubmit = data => { onClose(); onUpdate(data) }
+    const onSubmit = data => { onClose(); onUpdate({images: ["&","é"], ...data}) }
 
     console.log(errors)
     return (
@@ -44,9 +43,6 @@ function StampForm({
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <ControlTextField name="name" control={control} required={true} label="Name" fullWidth={true} error={!!errors.name} />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <ControlTextField name="image" control={control} label="Image" fullWidth={true} />
                         </Grid>
                         <Grid item xs={12}>
                             <ControlTextField name="reference" control={control} label="Ref" fullWidth={true} />

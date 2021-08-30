@@ -5,10 +5,7 @@ const stampSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    image: {
-        type: String,
-        required: true,
-    },
+    images: [String],
     country: {
         type: String,
         required: true,

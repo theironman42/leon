@@ -94,13 +94,14 @@ const Dropzone = props => {
   })
 
   const uploadImage = (imagefile) => {
+    console.log(imagesLink)
     var formData = new FormData();
     formData.append("image", imagefile);
     axios.post('/api/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    }).then((res)=>setImagesLink([res.data, ...imagesLink]))
+    }).then((res)=>{console.log(res.data); setImagesLink([res.data, ...imagesLink])})
   }
 
 
@@ -113,11 +114,13 @@ const Dropzone = props => {
 
 
   const thumbs = imagesLink.length > 0 && imagesLink.map((file, i) => (
+    
     <div style={thumb} key={i}>
       <div style={thumbInner}>
         <IconButton style={icon} onClick={() => { const ar = imagesLink; ar.splice(i, 1); setImagesLink([...ar]); /*setValue(name, [...ar], { shouldValidate: true });*/ }}>
           <DeleteForeverIcon />
         </IconButton>
+        {console.log(file, imagesLink.length)}
         <img
           src={file}
           style={img}

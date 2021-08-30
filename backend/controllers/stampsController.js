@@ -13,8 +13,8 @@ const getStamps = asyncHandler(async (req, res) => {
 //POST add a stamp to the db
 // @route /api/stamps
 const addStamp = asyncHandler(async (req, res) => {
-    const { name, image, country, description, price, reference } = req.body
-    const stamp = await Stamp.create({ name, image, country, description, price, reference })
+    const { name, images, country, description, price, reference } = req.body
+    const stamp = await Stamp.create({ name, images, country, description, price, reference })
     res.status(200).json(stamp)
 })
 
@@ -41,7 +41,7 @@ const updateStamp = asyncHandler(async (req, res) => {
     const stamp = await Stamp.findById(id)
     if (stamp) {
         stamp.name = req.body.name || stamp.name
-        stamp.image = req.body.image || stamp.image
+        stamp.images = req.body.images || stamp.images
         stamp.country = req.body.country || stamp.country
         stamp.description = req.body.description || stamp.description
         stamp.price = req.body.price || stamp.price
