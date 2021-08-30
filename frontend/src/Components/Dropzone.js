@@ -76,15 +76,8 @@ const Dropzone = props => {
 
   const onDrop = useCallback(
     (droppedFiles) => {
-      // const newFiles = (!!files?.length && [...files].concat(droppedFiles)) || droppedFiles;
-      // newFiles.map(file => {
-      //   uploadImage(file)
-      //   return Object.assign(file, {
-      //     preview: URL.createObjectURL(file)
-      //   })
-      // })
-      //setValue(name, newFiles, { shouldValidate: true });
-      droppedFiles.map(file => uploadImage(file))
+      //droppedFiles.map(file => uploadImage(file))
+      uploadImage(droppedFiles)
     },
     [setValue, name, files],
   );
@@ -96,12 +89,12 @@ const Dropzone = props => {
   const uploadImage = (imagefile) => {
     console.log(imagesLink)
     var formData = new FormData();
-    formData.append("image", imagefile);
+    imagefile.forEach((file, i)=>{formData.append("image"+i, file);})
     axios.post('/api/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    }).then((res)=>{console.log(res.data); setImagesLink([res.data, ...imagesLink])})
+    }).then((res)=>{console.log(res.data); setImagesLink([...res.data, ...imagesLink])})
   }
 
 
