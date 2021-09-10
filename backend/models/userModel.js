@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs'
 
+let role = ['USER', 'SELLER', 'ADMIN', 'SUPERADMIN']
+
+
 const userSchema = mongoose.Schema({
     name:{
         type: String,
@@ -15,10 +18,11 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    isAdmin:{
-        type: Boolean,
+    role:{
+        type: String,
+        enum: role,
         required: true,
-        default: false
+        default: 'USER'
     }
 }, {
     timestamps: true
