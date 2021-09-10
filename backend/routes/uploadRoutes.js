@@ -46,8 +46,7 @@ router.post('/', upload.any('images'), (req, res) => {
 })
 
 router.delete('/:id', async (req, res)=>{
-  console.log(req.params.id)
-  await unlinkAsync(`uploads/${req.params.id}`).then(()=> {console.log("Called");res.status('200').send()})
+  await unlinkAsync(`uploads/${req.params.id}`).then(()=> {res.status('200').send()}).catch(()=> res.status(404).send())
   
 })
 

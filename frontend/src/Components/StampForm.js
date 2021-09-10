@@ -31,16 +31,9 @@ function StampForm({
         reference: data ? data.reference : "",
         images: data ? data.images : []
     }
-    const [images, setImages] = useState((data && data.images && data.images.length && data.images) || [] )
     const methods = useForm({ defaultValues })
     const { handleSubmit, control, formState: { errors } } = methods
-    const onSubmit = data => { onClose(); onUpdate({images: images, ...data}) }
-
-    const imageHandler = (data) =>{
-
-        console.log("UPDATED", "CURRENT :", data, "PREVIOUS :", images)
-        setImages(data)
-    }
+    const onSubmit = data => { onClose(); onUpdate(data) }
 
     return (
         <Container>
