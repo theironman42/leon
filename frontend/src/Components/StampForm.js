@@ -28,7 +28,8 @@ function StampForm({
         country: data ? data.country : "",
         description: data ? data.description : "",
         price: data ? data.price : "",
-        reference: data ? data.reference : ""
+        reference: data ? data.reference : "",
+        images: data ? data.images : []
     }
     const [images, setImages] = useState((data && data.images && data.images.length && data.images) || [] )
     const methods = useForm({ defaultValues })
@@ -64,10 +65,9 @@ function StampForm({
                         </Grid>
                         <Grid item xs={12}>
                             <Dropzone
-                                name="files"
+                                name="images"
                                 accept="image/png, image/jpg, image/jpeg"
-                                onUpdate={imageHandler}
-                                imagesLinks={images}
+                               
                             />
                         </Grid>
                     </Grid>

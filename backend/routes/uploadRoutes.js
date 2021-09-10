@@ -1,7 +1,12 @@
 import path from 'path'
 import express from 'express'
 import multer from 'multer'
+import fs from 'fs'
+import { promisify } from 'util'
+
 const router = express.Router()
+
+const unlinkAsync = promisify(fs.unlink)
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
@@ -38,6 +43,12 @@ router.post('/', upload.any('images'), (req, res) => {
   const imgArray = [];
   req.files.map((file)=>{imgArray.push(`/image/${file.filename}`)}) 
   res.send(imgArray)
+})
+
+router.delete('/:id', async (req, res)=>{
+  console.log(req.params.id)
+  await unlinkAsync(`uploads/${req.params.id}`).then(()=> {console.log("Called");res.status('200').send()})
+  
 })
 
 export default router

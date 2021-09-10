@@ -5,6 +5,87 @@ import { IconButton } from '@material-ui/core';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import axios from 'axios'
 
+const Dropzone = ({ name, isNew, ...props }) => {
+  const { register, unregister, setValue, watch } = useFormContext()
+  const files = watch(name)
+
+  const onDeleteHandler = (file, i) => {
+    const ar = [...files];
+    ar.splice(i, 1);
+    setValue(name, [...ar], { shouldValidate: true });
+    axios.delete(`/api/upload/${file.slice(7)}`)
+  }
+
+  const onDrop = useCallback(
+    (droppedFiles) => {
+      uploadImage(droppedFiles)
+    },
+    [setValue, name, files],
+  );
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: props.accept,
+  })
+
+  const uploadImage = (imagefile) => {
+    var formData = new FormData();
+    imagefile.forEach((file, i) => { formData.append("image" + i, file); })
+    axios.post('/api/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((res) => {
+      const newFiles = (!!files?.length && [...files].concat(res.data)) || res.data;
+      setValue(name, newFiles, { shouldValidate: true });
+    })
+  }
+
+
+  useEffect(() => {
+    register(name)
+    return () => {
+      unregister(name)
+    }
+  }, [register, unregister, name])
+
+
+  const thumbs = files && files.length > 0 && files.map((file, i) => (
+
+    <div style={thumb} key={i}>
+      <div style={thumbInner}>
+        <IconButton style={icon}
+          onClick={() => {
+            onDeleteHandler(file, i)
+          }}>
+          <DeleteForeverIcon />
+        </IconButton>
+        <img
+          src={file}
+          style={img}
+          alt="product"
+        />
+      </div>
+    </div>
+  ));
+
+
+
+
+  return (
+    <section className="container">
+      <div {...getRootProps({ className: 'dropzone', style })} >
+        <input  {...getInputProps()} />
+        <p>Drag 'n' drop some files here, or click to select files</p>
+      </div>
+      <aside style={thumbsContainer}>
+        {thumbs}
+      </aside>
+    </section>
+  );
+
+
+}
+
 const thumbsContainer = {
   display: 'flex',
   flexDirection: 'row',
@@ -63,78 +144,6 @@ const icon = {
   margin: '-24px -24px -15px 0px',
   backgroundColor: '#e3e0d8',
   opacity: 0.5
-}
-
-
-
-const Dropzone = ({ name, imagesLinks, onUpdate, ...props })  => {
-  const { register, unregister, setValue, watch } = useFormContext()
-  const files = watch(name)
-  //const [imagesLink, setImagesLink] = useState([])
-
-  const onDrop = useCallback(
-    (droppedFiles) => {
-      //droppedFiles.map(file => uploadImage(file))
-      uploadImage(droppedFiles)
-    },
-    [setValue, name, files],
-  );
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: props.accept,
-  })
-
-  const uploadImage = (imagefile) => {
-    var formData = new FormData();
-    imagefile.forEach((file, i)=>{formData.append("image"+i, file);})
-    axios.post('/api/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then((res)=>{onUpdate([...res.data, ...imagesLinks])})
-  }
-
-
-  useEffect(() => {
-    register(name)
-    return () => {
-      unregister(name)
-    }
-  }, [register, unregister, name])
-
-
-  const thumbs = imagesLinks.length > 0 && imagesLinks.map((file, i) => (
-    
-    <div style={thumb} key={i}>
-      <div style={thumbInner}>
-        <IconButton style={icon} onClick={() => { const ar = [...imagesLinks]; ar.splice(i, 1); onUpdate([...ar]); /*setValue(name, [...ar], { shouldValidate: true });*/ }}>
-          <DeleteForeverIcon />
-        </IconButton>
-        <img
-          src={file}
-          style={img}
-          alt="product"
-        />
-      </div>
-    </div>
-  ));
-
-
-
-
-  return (
-    <section className="container">
-      <div {...getRootProps({ className: 'dropzone', style })} >
-        <input  {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
-      </div>
-      <aside style={thumbsContainer}>
-        {thumbs}
-      </aside>
-    </section>
-  );
-
-
 }
 
 export default Dropzone
