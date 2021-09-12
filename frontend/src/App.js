@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import Navbar from './Screens/NavBar'
+import Navbar from './Components/NavBar'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Store from './Screens/Store'
 import StampsAdmin from './Screens/Admin/StampAdmin'
+import RegisterUser from './Screens/RegisterUser'
+import LoginUser from './Screens/LoginUser'
 
-function App() {
+function App(props) {
 
 
   return (
@@ -14,9 +16,10 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Switch>
-          
-          <Route path="/admin/stamps"><StampsAdmin /></Route>
-          <Route path="/"><Store /></Route>
+          <Route path="/register" component={RegisterUser} />
+          <Route path="/login" component={LoginUser} />
+          <Route path="/admin/stamps" component={StampsAdmin} />
+          <Route path="/" component={Store} />
 
         </Switch>
       </BrowserRouter>

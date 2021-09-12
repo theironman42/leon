@@ -68,7 +68,6 @@ function StampsAdmin() {
                     getData("/api/stamps")
                         .then(({ data }) => {
                             const result = data
-                            console.log(query, result)
                             resolve({
                                 data: result.data,
                                 totalCount: result.total,

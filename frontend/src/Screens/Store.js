@@ -3,7 +3,6 @@ import { getData } from '../Utils/backend'
 import StampsAdmin from './Admin/StampAdmin'
 
 function Store() {
-
     return (
         <div>
             <StampsAdmin />

@@ -5,6 +5,7 @@ import connectDB from './config/db.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 import stampRoutes from './routes/stampRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 
 dotenv.config()
 connectDB()
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/stamps', stampRoutes)
 app.use('/api/upload', uploadRoutes)
+app.use('/api/users', userRoutes)
 
 const __dirname = path.resolve()
 app.use('/image', express.static(path.join(__dirname, '/uploads')))

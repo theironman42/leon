@@ -1,6 +1,8 @@
 import React from 'react'
-import { Container, makeStyles, Toolbar, Typography } from '@material-ui/core'
+import { Button, Container, makeStyles, Toolbar, Typography } from '@material-ui/core'
 import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { logout } from '../actions/userActions';
 
 const useStyles = makeStyles({
     siteTitle: {
@@ -17,6 +19,11 @@ const useStyles = makeStyles({
 function Navbar() {
 
     const classes = useStyles()
+    const dispatch = useDispatch()
+
+    const handleLogout = () => {
+      dispatch(logout())
+    }
 
     return (
         <div>
@@ -26,6 +33,9 @@ function Navbar() {
                     <Link to="/test"><Typography className={classes.menuItem}>Expertising</Typography></Link>
                     <Link to="/test"><Typography className={classes.menuItem}>Contact</Typography></Link>
                     <Link to="/admin/stamps"><Typography className={classes.menuItem}>Admin</Typography></Link>
+                    <Link to="/login"><Typography className={classes.menuItem}>Login</Typography></Link>
+                    <Link to="/register"><Typography className={classes.menuItem}>Register</Typography></Link>
+                    <Button to="/logout" onClick={handleLogout}><Typography className={classes.menuItem}>Logout</Typography></Button>
                 </Toolbar>
             </Container>
         </div>
