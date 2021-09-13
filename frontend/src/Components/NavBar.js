@@ -35,6 +35,7 @@ function Navbar() {
                     <Link to="/admin/stamps"><Typography className={classes.menuItem}>Admin</Typography></Link>
                     <Link to="/login"><Typography className={classes.menuItem}>Login</Typography></Link>
                     <Link to="/register"><Typography className={classes.menuItem}>Register</Typography></Link>
+                    <Link to="/profile"><Typography className={classes.menuItem}>Profile</Typography></Link>
                     <Button to="/logout" onClick={handleLogout}><Typography className={classes.menuItem}>Logout</Typography></Button>
                 </Toolbar>
             </Container>

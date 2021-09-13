@@ -6,6 +6,7 @@ import Store from './Screens/Store'
 import StampsAdmin from './Screens/Admin/StampAdmin'
 import RegisterUser from './Screens/RegisterUser'
 import LoginUser from './Screens/LoginUser'
+import ProfileScreen from './Screens/ProfileScreen'
 
 function App(props) {
 
@@ -17,6 +18,7 @@ function App(props) {
         <Navbar />
         <Switch>
           <Route path="/register" component={RegisterUser} />
+          <Route path="/profile" component={ProfileScreen} />
           <Route path="/login" component={LoginUser} />
           <Route path="/admin/stamps" component={StampsAdmin} />
           <Route path="/" component={Store} />
