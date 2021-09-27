@@ -19,11 +19,6 @@ const useStyles = makeStyles({
 });
 
 function ProfileScreen({ history, location }) {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    
-
     const classes = useStyles()
     const dispatch = useDispatch()
     const methods = useForm()

@@ -6,11 +6,12 @@ const sellerMW = asyncHandler(async (req, res, next) => {
     let user = req.user
 
     if (user) {
-        if(user.role === "SELLER"){
+        if (user.role === "SELLER") {
             next()
+        } else {
+            res.status(401)
+            throw new Error('Not authorized, seller only page')
         }
-        res.status(401)
-        throw new Error('Not authorized, seller only page')
     }
 
     if (!user) {

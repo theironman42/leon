@@ -1,9 +1,12 @@
 import MaterialTable, {MTableToolbar} from 'material-table'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import StampForm from '../../Components/StampForm'
 import { deleteData, getData, postData, putData } from '../../Utils/backend'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Button, Dialog, makeStyles } from '@material-ui/core'
+import { useDispatch, useSelector } from 'react-redux';
+import { uploadProduct, deleteProduct } from '../../actions/productActions';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -23,6 +26,14 @@ function StampsAdmin() {
 
     const classes = useStyles()
     const tableRef = useRef();
+    const dispatch = useDispatch();
+    const productDelete = useSelector(state => state.productDelete)
+    useEffect(() => {
+        
+        return () => {
+            
+        }
+    }, [])
 
     function refreshTable() {
         if (tableRef && tableRef.current) {
@@ -32,7 +43,7 @@ function StampsAdmin() {
 
     const handleClose = () => { setOpenDialog(false) }
 
-    const saveData = (data) => { postData('/api/stamps', data).then(()=>refreshTable()) }
+    const saveData = (data) => { dispatch(uploadProduct(data)).then(()=>refreshTable()) }
 
     return (
         <div>
@@ -85,12 +96,12 @@ function StampsAdmin() {
                     <StampForm
                         data={rowData}
                         isNew={false}
-                        onUpdate={(data) => { putData(`/api/stamps/${rowData._id}`, data, refreshTable) }}
+                        onUpdate={saveData}
                         onClose={()=>{}}
                     />}
                 actions={[{
                     icon: () => <><DeleteIcon /></>,
-                    onClick: (event, rowData) => { deleteData(`/api/stamps/${rowData._id}`, refreshTable) },
+                    onClick: (event, rowData) => { dispatch(deleteProduct(rowData._id)); refreshTable() },
                     tooltip: "Delete stamp"
                 }
                 ]}
