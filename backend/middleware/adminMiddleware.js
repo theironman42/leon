@@ -2,15 +2,15 @@ import jwt from 'jsonwebtoken'
 import asyncHandler from "express-async-handler";
 import User from '../models/userModel.js'
 
-const sellerMW = asyncHandler(async (req, res, next) => {
+const adminMW = asyncHandler(async (req, res, next) => {
     let user = req.user
 
     if (user) {
-        if (user.role === "SELLER" || user.role === "ADMIN") {
+        if (user.role === "ADMIN") {
             next()
         } else {
             res.status(401)
-            throw new Error('Not authorized, seller only page')
+            throw new Error('Not authorized, admin only page')
         }
     }
 
@@ -23,5 +23,5 @@ const sellerMW = asyncHandler(async (req, res, next) => {
 })
 
 export {
-    sellerMW
+    adminMW
 }

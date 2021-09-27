@@ -79,7 +79,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
-            isAdmin: user.isAdmin,
+            role: user.role,
             token: generateToken(user._id)
         })
     } else {
@@ -106,7 +106,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
             _id: updatedUser._id,
             name: updatedUser.name,
             email: updatedUser.email,
-            isAdmin: updatedUser.isAdmin,
+            role: user.role,
             token: generateToken(updatedUser._id)
         })
 
@@ -116,10 +116,20 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     }
 })
 
+// @desc   Get users list
+// @route  GET /api/users
+// @access Private
+const getUsers = asyncHandler(async (req, res) => {
+    const users = await User.find({}).select('-password')
+    const data = { "data": users, total: users.length, page: 0 }
+    res.status(200).json(data)
+})
+
 
 export {
     authUser,
     registerUser,
     getUserProfile,
-    updateUserProfile
+    updateUserProfile,
+    getUsers
 }
