@@ -36,14 +36,14 @@ function ProfileScreen({ history, location }) {
         if (!userInfo) {
             history.push('/login?redirect=profile')
         } else {
-            if (!user.name) {
+            if (!user || !user.name) {
                 dispatch(getUserDetails('profile'))
             } else {
                 setValue('name', user.name)
                 setValue('email', user.email)
             }
         }
-    }, [history, userInfo, dispatch, user])
+    }, [history, userInfo, dispatch,setValue, user])
 
     const onSubmit = (data) => {
         dispatch(updateUserProfile({
