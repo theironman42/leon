@@ -28,7 +28,6 @@ function RegisterUser(props) {
     const userRegister = useSelector(state => state.userRegister)
     const { userInfo, loading, error } = userRegister
     const onSubmit = (data) => {
-        console.log(data)
         dispatch(register(data))
     }
 

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { getData } from '../Utils/backend'
 import StampsAdmin from './Admin/StampAdmin'
 
-function Store() {
+function Store(props) {
     return (
         <div>
-            <StampsAdmin />
+            COUCOU
         </div>
     )
 }

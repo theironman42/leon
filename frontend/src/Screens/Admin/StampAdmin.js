@@ -5,7 +5,7 @@ import { deleteData, getData, postData, putData } from '../../Utils/backend'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Button, Dialog, makeStyles } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadProduct, deleteProduct } from '../../actions/productActions';
+import { uploadProduct, deleteProduct, editProduct } from '../../actions/productActions';
 
 
 
@@ -44,6 +44,7 @@ function StampsAdmin() {
     const handleClose = () => { setOpenDialog(false) }
 
     const saveData = (data) => { dispatch(uploadProduct(data)).then(()=>refreshTable()) }
+    const updateData = (data) => { dispatch(editProduct(data)).then(()=>refreshTable()) }
 
     return (
         <div>
@@ -96,12 +97,12 @@ function StampsAdmin() {
                     <StampForm
                         data={rowData}
                         isNew={false}
-                        onUpdate={saveData}
+                        onUpdate={updateData}
                         onClose={()=>{}}
                     />}
                 actions={[{
                     icon: () => <><DeleteIcon /></>,
-                    onClick: (event, rowData) => { dispatch(deleteProduct(rowData._id)); refreshTable() },
+                    onClick: (event, rowData) => { dispatch(deleteProduct(rowData._id)).then(refreshTable) },
                     tooltip: "Delete stamp"
                 }
                 ]}

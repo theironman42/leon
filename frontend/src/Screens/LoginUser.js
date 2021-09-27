@@ -28,7 +28,6 @@ function LoginUser(props) {
     const redirect = props.location.search ? props.location.search.split('=')[1] : '/'
 
     const onSubmit = (data) => {
-        console.log(data)
         dispatch(login(data))
     }
     useEffect(() => {
