@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Button, Container, Grid } from '@material-ui/core'
 import { FormProvider, useForm } from 'react-hook-form'
 import { ControlTextField } from '../Components/ControlFields'
@@ -30,6 +30,17 @@ function RegisterUser(props) {
     const onSubmit = (data) => {
         dispatch(register(data))
     }
+
+    console.log("register: ", userInfo)
+
+    useEffect(() => {
+        if (userInfo) {
+            props.history.push('/profile')
+        }
+        return () => {
+            
+        }
+    }, [userInfo])
 
     return (
         <>

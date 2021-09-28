@@ -33,7 +33,7 @@ function UserForm({onSubmit, onCancel, data, isAdmin}) {
     return (
         <>
             <FormProvider {...methods} >
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit((formData)=>onSubmit({...data, ...formData}))}>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <ControlTextField

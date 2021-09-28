@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import connectDB from './config/db.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 import stampRoutes from './routes/stampRoutes.js'
+import adminRoutes from './routes/adminRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 app.use('/api/stamps', stampRoutes)
 app.use('/api/upload', uploadRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/admin', adminRoutes)
 
 const __dirname = path.resolve()
 app.use('/image', express.static(path.join(__dirname, '/uploads')))

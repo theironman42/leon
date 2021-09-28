@@ -4,7 +4,7 @@ import { deleteData, getData, postData, putData } from '../../Utils/backend'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Button, Dialog, makeStyles } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsersList } from '../../actions/userActions';
+import { getUsersList, updateUser } from '../../actions/userActions';
 import UserForm from '../../Components/Admin/UserForm';
 
 
@@ -49,32 +49,14 @@ function UsersListing(props) {
 
     const handleClose = () => { setOpenDialog(false) }
 
-    const saveData = (data) => {  }
-    const updateData = (data) => {  }
+    const saveData = (data) => { console.log("save data") }
+    const updateData = (data) => { dispatch(updateUser(data)) }
 
     return (
         <div>
-            <Dialog onClose={() => { setOpenDialog(false) }} open={openDialog} maxWidth={'md'} fullWidth>
-                <div className={classes.dialog}>
-                    FORM SHOULD BE HERE
-                </div>
-            </Dialog>
 
             <MaterialTable
                 title="Stamps"
-                components={{
-                    Toolbar: props => (
-                        <div>
-                            <div>
-                            <MTableToolbar {...props} />
-                            </div>
-                            <div className={classes.newButton}>
-                                <Button variant={'outlined'} onClick={() => setOpenDialog(true)}>New</Button>
-                            </div>
-                        </div>
-                        
-                    )
-                }}
                 tableRef={tableRef}
                 columns={[
                     { title: "Name", field: "name" },
@@ -88,7 +70,7 @@ function UsersListing(props) {
                     actionsColumnIndex: -1,
                 }}
                 detailPanel={rowData =>
-                    <UserForm data={rowData} onSubmit={saveData} onCancel={()=>props.history.push('/')} isAdmin /> }
+                    <UserForm data={rowData} onSubmit={updateData} onCancel={()=>props.history.push('/')} isAdmin /> }
                 actions={[{
                     icon: () => <><DeleteIcon /></>,
                     onClick: (event, rowData) => { console.log("delete user")},
