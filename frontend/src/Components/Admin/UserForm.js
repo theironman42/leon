@@ -3,6 +3,8 @@ import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { ControlSelect, ControlTextField } from '../ControlFields'
 
+const PASSWORD_SIZE = 2
+
 const useStyles = makeStyles({
     buttonsBox: {
         textAlign: 'right'
@@ -18,7 +20,6 @@ const useStyles = makeStyles({
 
 function UserForm({onSubmit, onCancel, data, isAdmin}) {
     
-    console.log(data)
 
     const defaultValues = {
         name: data ? data.name : "",
@@ -30,6 +31,14 @@ function UserForm({onSubmit, onCancel, data, isAdmin}) {
     const methods = useForm({ defaultValues })
     const { handleSubmit, control, getValues, formState: { errors } } = methods
     const classes = useStyles()
+
+    const validatePasswords = (value) =>{
+        const password = getValues('password')
+        const passwordsAreEqual = password === value
+        const isBigEnough = value.length > PASSWORD_SIZE
+        const isNotPassword = value.length < 1
+        return (passwordsAreEqual && isBigEnough )|| (isNotPassword && passwordsAreEqual)
+    }
     return (
         <>
             <FormProvider {...methods} >
@@ -57,8 +66,8 @@ function UserForm({onSubmit, onCancel, data, isAdmin}) {
                             <ControlTextField
                                 name="password"
                                 type="password"
+                                required={!data}
                                 control={control}
-                                required={true}
                                 label="Change Password"
                                 fullWidth={true}
                                 error={!!errors.password} />
@@ -67,9 +76,9 @@ function UserForm({onSubmit, onCancel, data, isAdmin}) {
                             <ControlTextField
                                 name="confirmPassword"
                                 type="password"
-                                rules={{ validate: (value) => {return (getValues('password') === value)&&(value && (value.length > 2))} }}
+                                required={!data}
+                                rules={{ validate: (value) => {return validatePasswords(value)} }}
                                 control={control}
-                                required={true}
                                 label="Confirm Changed Password"
                                 fullWidth={true}
                                 error={!!errors.confirmPassword} />
