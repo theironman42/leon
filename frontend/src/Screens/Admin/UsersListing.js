@@ -5,6 +5,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { Button, Dialog, makeStyles } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsersList } from '../../actions/userActions';
+import UserForm from '../../Components/Admin/UserForm';
 
 
 
@@ -19,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function UsersListing() {
+function UsersListing(props) {
 
     const [openDialog, setOpenDialog] = useState(false)
 
@@ -87,7 +88,7 @@ function UsersListing() {
                     actionsColumnIndex: -1,
                 }}
                 detailPanel={rowData =>
-                    <label>tada</label>}
+                    <UserForm data={rowData} onSubmit={saveData} onCancel={()=>props.history.push('/')} isAdmin /> }
                 actions={[{
                     icon: () => <><DeleteIcon /></>,
                     onClick: (event, rowData) => { console.log("delete user")},

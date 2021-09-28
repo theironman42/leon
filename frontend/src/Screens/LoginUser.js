@@ -38,7 +38,7 @@ function LoginUser(props) {
     return (
         <>
         <Container>
-            <h1>Register User</h1>
+            <h1>Login User</h1>
             <FormProvider {...methods} >
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Grid container spacing={3}>
