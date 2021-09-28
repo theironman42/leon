@@ -1,4 +1,4 @@
-import { MenuItem, Select, TextField } from "@material-ui/core"
+import { InputLabel, MenuItem, Select, TextField } from "@material-ui/core"
 import { Controller } from "react-hook-form"
 
 
@@ -18,11 +18,13 @@ export const ControlSelect = ({ name, control, required, rules, values, ...props
         defaultValue=""
         control={control}
         rules={{ required: required, ...rules }}
-        render={({ field }) =>
+        render={({ field }) => (<>
+            <InputLabel shrink>{props.label}</InputLabel>
             <Select {...field} {...props} >
-                {values && values.map((item, index)=>(
+                {values && values.map((item, index) => (
                     <MenuItem key={index} value={item}>{item}</MenuItem>
                 ))}
-            </Select>}
+            </Select>
+        </>)}
     />
 }
