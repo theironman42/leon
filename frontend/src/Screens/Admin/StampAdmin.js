@@ -77,13 +77,17 @@ function StampsAdmin() {
                     { title: "Price", field: "price" }
                 ]}
                 data={query => new Promise((resolve, reject) => {
-                    getData("/api/stamps")
+                    let url =  "/api/stamps" + "?";
+                    url += "pageSize=" + query.pageSize;
+                    url += "&pageNumber=" + (query.page + 1);
+                    console.log(url)
+                    getData(url)
                         .then(({ data }) => {
                             const result = data
                             resolve({
                                 data: result.data,
                                 totalCount: result.total,
-                                page: 0
+                                page: result.page
                             })
                         })
                 })}
