@@ -5,8 +5,10 @@ import Stamp from '../models/stampModel.js'
 //TODO make it work with a query (nb of items per page ...)
 // @route GET /api/stamps
 const getStamps = asyncHandler(async (req, res) => {
-    const count = await Stamp.find({}).count()
-    const stamps = await Stamp.find({}, null, {skip: req.query.pageSize * (req.query.pageNumber-1), limit: Number(req.query.pageSize)} )
+    const query = Stamp.find({})
+    const count = await Stamp.find().merge(query).countDocuments()
+    const stamps = await query.skip(req.query.pageSize * (req.query.pageNumber-1)).limit(Number(req.query.pageSize)) //Stamp.find({}, null, {skip: req.query.pageSize * (req.query.pageNumber-1), limit: Number(req.query.pageSize)} )
+    console.log(stamps)
     const data = { "data": stamps, total: count, page: Number(req.query.pageNumber)-1 }
     res.status(200).json(data)
 })
