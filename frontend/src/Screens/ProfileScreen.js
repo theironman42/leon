@@ -1,28 +1,12 @@
-import { Box, Button, Container, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import React, { useState, useEffect } from 'react'
-import { FormProvider, useForm } from 'react-hook-form';
+import { Container, } from '@material-ui/core';
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDetails, updateUserProfile } from "../actions/userActions"
 import UserForm from '../Components/Admin/UserForm';
-import { ControlTextField } from '../Components/ControlFields';
 
-const useStyles = makeStyles({
-    buttonsBox: {
-        textAlign: 'right'
-    },
-    cancelButton: {
-        margin: "12px"
-    },
-    saveButton: {
-        margin: "12px"
-    }
-});
 
 function ProfileScreen({ history, location }) {
     const dispatch = useDispatch()
-    const methods = useForm()
-    const { setValue } = methods
 
     const userDetails = useSelector(state => state.userDetails)
     const { user, loading, error } = userDetails
@@ -42,7 +26,7 @@ function ProfileScreen({ history, location }) {
                 
             }
         }
-    }, [history, userInfo, dispatch,setValue, user])
+    }, [history, userInfo, dispatch, user])
 
     const onSubmit = (data) => {
         dispatch(updateUserProfile({

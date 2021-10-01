@@ -1,21 +1,13 @@
-import { Box, Button, Grid, makeStyles } from '@material-ui/core'
+import { Box, Button, Container, Grid, makeStyles } from '@material-ui/core'
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import { makeStylesGlobal } from '../../theme/GlobalTheme'
 import { ControlSelect, ControlTextField } from '../ControlFields'
 
 const PASSWORD_SIZE = 2
 
-const useStyles = makeStyles({
-    buttonsBox: {
-        textAlign: 'right'
-    },
-    cancelButton: {
-        margin: "12px"
-    },
-    saveButton: {
-        margin: "12px"
-    }
-});
+const useStyles = makeStylesGlobal({})
+
 
 
 function UserForm({onSubmit, onCancel, data, isAdmin}) {
@@ -40,7 +32,8 @@ function UserForm({onSubmit, onCancel, data, isAdmin}) {
         return (passwordsAreEqual && isBigEnough )|| (isNotPassword && passwordsAreEqual)
     }
     return (
-        <>
+        <Container>
+        <h1>User Form</h1>
             <FormProvider {...methods} >
                 <form onSubmit={handleSubmit((formData)=>onSubmit({...data, ...formData}))}>
                     <Grid container spacing={3}>
@@ -100,7 +93,7 @@ function UserForm({onSubmit, onCancel, data, isAdmin}) {
                     </Box>
                 </form>
             </FormProvider>
-        </>
+        </Container>
     )
 }
     export default UserForm

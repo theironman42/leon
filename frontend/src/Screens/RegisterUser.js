@@ -1,29 +1,12 @@
 import React, { useEffect } from 'react'
-import { Box, Button, Container, Grid } from '@material-ui/core'
-import { FormProvider, useForm } from 'react-hook-form'
-import { ControlTextField } from '../Components/ControlFields'
-import { makeStyles } from '@material-ui/styles';
+import { Container } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux';
 import { register } from '../actions/userActions';
 import UserForm from '../Components/Admin/UserForm';
 
 
-const useStyles = makeStyles({
-    buttonsBox: {
-        textAlign: 'right'
-    },
-    cancelButton: {
-        margin: "12px"
-    },
-    saveButton: {
-        margin: "12px"
-    }
-});
-
 function RegisterUser(props) {
 
-    const classes = useStyles()
-    const methods = useForm()
     const dispatch = useDispatch()
     const userRegister = useSelector(state => state.userRegister)
     const { userInfo, loading, error } = userRegister
@@ -40,7 +23,7 @@ function RegisterUser(props) {
         return () => {
             
         }
-    }, [userInfo])
+    }, [userInfo, props.history])
 
     return (
         <>

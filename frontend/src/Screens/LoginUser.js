@@ -5,24 +5,15 @@ import { ControlTextField } from '../Components/ControlFields'
 import { makeStyles } from '@material-ui/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../actions/userActions';
+import { makeStylesGlobal } from '../theme/GlobalTheme';
+const useStyles = makeStylesGlobal({})
 
-const useStyles = makeStyles({
-    buttonsBox: {
-        textAlign: 'right'
-    },
-    cancelButton: {
-        margin: "12px"
-    },
-    saveButton: {
-        margin: "12px"
-    }
-});
 
 function LoginUser(props) {
     const classes = useStyles()
     const methods = useForm()
     const dispatch = useDispatch()
-    const { handleSubmit, control, getValues, formState: { errors } } = methods
+    const { handleSubmit, control, formState: { errors } } = methods
     const userLogin = useSelector(state => state.userLogin)
     const {userInfo, loading, error} = userLogin
     const redirect = props.location.search ? props.location.search.split('=')[1] : '/'

@@ -1,23 +1,17 @@
 import MaterialTable, {MTableToolbar} from 'material-table'
 import React, { useEffect, useRef, useState } from 'react'
-import StampForm from '../../Components/StampForm'
-import { deleteData, getData, postData, putData } from '../../Utils/backend'
+import StampForm from '../../Components/Admin/StampForm'
+import { getData } from '../../Utils/backend'
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Button, Dialog, makeStyles } from '@material-ui/core'
+import { Button, Dialog } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadProduct, deleteProduct, editProduct } from '../../actions/productActions';
+import { makeStylesGlobal } from '../../theme/GlobalTheme';
 
 
 
-const useStyles = makeStyles(theme => ({
-    dialog:{
-        margin: "12px"
-    },
-    newButton:{
-        textAlign: 'right',
-        marginRight: '12px'
-    }
-}));
+const useStyles = makeStylesGlobal({})
+
 
 
 function StampsAdmin() {
@@ -27,7 +21,6 @@ function StampsAdmin() {
     const classes = useStyles()
     const tableRef = useRef();
     const dispatch = useDispatch();
-    const productDelete = useSelector(state => state.productDelete)
     useEffect(() => {
         
         return () => {

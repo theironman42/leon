@@ -1,20 +1,11 @@
-import { Box, Button, Container, Grid, makeStyles } from '@material-ui/core'
+import { Box, Button, Container, Grid } from '@material-ui/core'
 import React, { useState } from 'react'
 import { useFormContext, useForm, FormProvider } from "react-hook-form"
-import { ControlTextField } from './ControlFields'
-import Dropzone from './Dropzone'
+import { makeStylesGlobal } from '../../theme/GlobalTheme'
+import { ControlTextField } from '../ControlFields'
+import Dropzone from '../Dropzone'
 
-const useStyles = makeStyles({
-    buttonsBox: {
-        textAlign: 'right'
-    },
-    cancelButton: {
-        margin: "12px"
-    },
-    saveButton: {
-        margin: "12px"
-    }
-});
+const useStyles = makeStylesGlobal({})
 
 function StampForm({
     data,
@@ -35,6 +26,7 @@ function StampForm({
     const { handleSubmit, control, formState: { errors } } = methods
     const onSubmit = data => { onClose(); onUpdate(data) }
 
+    console.log(classes)
     return (
         <Container>
             <h1>Stamp Form</h1>

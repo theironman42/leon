@@ -6,18 +6,12 @@ import { Button, Dialog, makeStyles } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsersList, updateUser } from '../../actions/userActions';
 import UserForm from '../../Components/Admin/UserForm';
+import { makeStylesGlobal } from '../../theme/GlobalTheme';
 
 
 
-const useStyles = makeStyles(theme => ({
-    dialog:{
-        margin: "12px"
-    },
-    newButton:{
-        textAlign: 'right',
-        marginRight: '12px'
-    }
-}));
+const useStyles = makeStylesGlobal({})
+
 
 
 function UsersListing(props) {
