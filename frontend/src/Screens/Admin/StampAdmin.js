@@ -37,7 +37,7 @@ function StampsAdmin() {
     const handleClose = () => { setOpenDialog(false) }
 
     const saveData = (data) => { dispatch(uploadProduct(data)).then(()=>refreshTable()) }
-    const updateData = (data) => { dispatch(editProduct(data)).then(()=>refreshTable()) }
+    const updateData = (data) => { console.log(data);dispatch(editProduct(data)).then(()=>refreshTable()) }
 
     return (
         <div>
@@ -73,7 +73,6 @@ function StampsAdmin() {
                     let url =  "/api/stamps" + "?";
                     url += "pageSize=" + query.pageSize;
                     url += "&pageNumber=" + (query.page + 1);
-                    console.log(url)
                     getData(url)
                         .then(({ data }) => {
                             const result = data

@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { ADD_PRODUCT_FAIL, ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, DELETE_PRODUCT_FAIL, DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, EDIT_PRODUCT_FAIL, EDIT_PRODUCT_REQUEST, EDIT_PRODUCT_SUCCESS } from "../constants/productConstants";
+import { ADD_PRODUCT_FAIL, ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, DELETE_PRODUCT_FAIL, DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, EDIT_PRODUCT_FAIL, EDIT_PRODUCT_REQUEST, EDIT_PRODUCT_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS } from "../constants/productConstants";
 import { logout } from "./userActions";
 
 export const uploadProduct = (product) => async (dispatch, getState) => {
@@ -115,6 +115,32 @@ export const editProduct = (product) => async (dispatch, getState) => {
         } 
         dispatch({
             type: EDIT_PRODUCT_FAIL,
+            payload: message
+        })
+    }
+}
+
+export const getStampList = (page, pageSize) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: PRODUCT_LIST_REQUEST
+        })
+
+        let url =  "/api/stamps?";
+        url += "pageSize=" + pageSize;
+        url += "&pageNumber=" + (page + 1);
+
+        const { data } = await axios.get(url)
+
+        dispatch({
+            type: PRODUCT_LIST_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : error.message
+        dispatch({
+            type: PRODUCT_LIST_FAIL,
             payload: message
         })
     }

@@ -16,6 +16,20 @@ const Dropzone = ({ name, isNew, ...props }) => {
     axios.delete(`/api/upload/${file.slice(7)}`)
   }
 
+  const uploadImage = (imagefile) => {
+    var formData = new FormData();
+    imagefile.forEach((file, i) => { formData.append("image" + i, file); })
+    axios.post('/api/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((res) => {
+      const newFiles = (!!files?.length && [...files].concat(res.data)) || res.data;
+      console.log("Upload image files",newFiles)
+      setValue(name, newFiles, { shouldValidate: true });
+    })
+  }
+
   const onDrop = useCallback(
     (droppedFiles) => {
       uploadImage(droppedFiles)
@@ -27,18 +41,7 @@ const Dropzone = ({ name, isNew, ...props }) => {
     accept: props.accept,
   })
 
-  const uploadImage = (imagefile) => {
-    var formData = new FormData();
-    imagefile.forEach((file, i) => { formData.append("image" + i, file); })
-    axios.post('/api/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then((res) => {
-      const newFiles = (!!files?.length && [...files].concat(res.data)) || res.data;
-      setValue(name, newFiles, { shouldValidate: true });
-    })
-  }
+  
 
 
   useEffect(() => {

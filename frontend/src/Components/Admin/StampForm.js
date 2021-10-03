@@ -24,7 +24,7 @@ function StampForm({
     }
     const methods = useForm({ defaultValues })
     const { handleSubmit, control, formState: { errors } } = methods
-    const onSubmit = data => { onClose(); onUpdate(data) }
+    const onSubmit = formData => { onClose(); onUpdate({...data, ...formData}) }
 
     console.log(classes)
     return (
