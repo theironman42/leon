@@ -1,14 +1,27 @@
-import { Button, Card, CardActions, CardContent, CardMedia, Typography, Grid } from '@material-ui/core'
+import { Button, Card, CardActions, CardContent, CardMedia, Typography, Grid, Container } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getStampList } from '../actions/productActions'
+import { makeStylesGlobal } from '../theme/GlobalTheme'
 import { getData } from '../Utils/backend'
 import StampsAdmin from './Admin/StampAdmin'
+const useStyles = makeStylesGlobal({
+    cardMedia: {
+        height: "30vh",
+        width: 'auto',
+        marginLeft: "auto",
+        marginRight: "auto"
+    },
+    productCard:{
+        
+    }
+})
 
 function Store(props) {
     const dispatch = useDispatch()
     const products = useSelector(state => state.productList)
     const { productList } = products
+    const classes = useStyles()
 
     useEffect(() => {
         if (!productList) {
@@ -25,9 +38,9 @@ function Store(props) {
             <Card key={product._id}>
                 <CardMedia
                     component="img"
-                    style={{ height: "25vh", width: 'auto' }}
                     image={product.images && product.images[0]}
                     alt="product image"
+                    className={classes.cardMedia}
                 />
                 <CardContent>
                     <Typography > {product.name} </Typography>
@@ -50,9 +63,11 @@ function Store(props) {
     }
 
     return (
-        <Grid container spacing={3}>
-            {productList && productList.data.length > 0 && storePage(productList.data)}
-        </Grid>
+        <Container>
+            <Grid container spacing={3}>
+                {productList && productList.data.length > 0 && storePage(productList.data)}
+            </Grid>
+        </Container>
     )
 }
 
