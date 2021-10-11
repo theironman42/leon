@@ -7,6 +7,7 @@ import RegisterUser from '../Screens/RegisterUser'
 import LoginUser from '../Screens/LoginUser'
 import ProfileScreen from '../Screens/ProfileScreen'
 import AdminRoutes from './AdminRoutes'
+import ProductScreen from '../Screens/ProductSreen'
 
 function AppRoutes(props) {
     return (
@@ -17,6 +18,7 @@ function AppRoutes(props) {
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/login" component={LoginUser} />
           <PrivateRoute path="/admin" authorized={['SELLER','ADMIN']} component={AdminRoutes} />
+          <Route path="/product/:id" component={ProductScreen} />
           <Route path="/" component={Store} />
           
 

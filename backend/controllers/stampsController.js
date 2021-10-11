@@ -7,8 +7,8 @@ import Stamp from '../models/stampModel.js'
 const getStamps = asyncHandler(async (req, res) => {
     const query = Stamp.find({})
     const count = await Stamp.find().merge(query).countDocuments()
-    const stamps = await query.skip(req.query.pageSize * (req.query.pageNumber-1)).limit(Number(req.query.pageSize)) //Stamp.find({}, null, {skip: req.query.pageSize * (req.query.pageNumber-1), limit: Number(req.query.pageSize)} )
-    const data = { "data": stamps, total: count, page: Number(req.query.pageNumber)-1 }
+    const stamps = await query.skip(req.query.pageSize * (req.query.pageNumber - 1)).limit(Number(req.query.pageSize)) //Stamp.find({}, null, {skip: req.query.pageSize * (req.query.pageNumber-1), limit: Number(req.query.pageSize)} )
+    const data = { "data": stamps, total: count, page: Number(req.query.pageNumber) - 1 }
     res.status(200).json(data)
 })
 
@@ -56,9 +56,22 @@ const updateStamp = asyncHandler(async (req, res) => {
     }
 })
 
+const getStampDetail = asyncHandler(async (req, res) => {
+    const id = req.params.id
+    const stamp = await Stamp.findById(id)
+    if (stamp) {
+        res.status(200).json(stamp)
+    } else {
+        res.status(404)
+        throw new Error("Stamp not found")
+    }
+
+})
+
 export {
     getStamps,
     addStamp,
     deleteStamp,
-    updateStamp
+    updateStamp,
+    getStampDetail
 }

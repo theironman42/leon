@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { Box, Button, Container, Grid } from '@material-ui/core'
 import { FormProvider, useForm } from 'react-hook-form'
 import { ControlTextField } from '../Components/ControlFields'
-import { makeStyles } from '@material-ui/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../actions/userActions';
 import { makeStylesGlobal } from '../theme/GlobalTheme';
@@ -15,7 +14,7 @@ function LoginUser(props) {
     const dispatch = useDispatch()
     const { handleSubmit, control, formState: { errors } } = methods
     const userLogin = useSelector(state => state.userLogin)
-    const {userInfo, loading, error} = userLogin
+    const {userInfo} = userLogin
     const redirect = props.location.search ? props.location.search.split('=')[1] : '/'
 
     const onSubmit = (data) => {

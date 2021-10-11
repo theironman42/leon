@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect } from "react"
 import { useDropzone } from "react-dropzone"
 import { useFormContext } from "react-hook-form"
 import { IconButton } from '@material-ui/core';
@@ -36,7 +36,7 @@ const Dropzone = ({ name, isNew, ...props }) => {
     },
     [setValue, name, files],
   );
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: props.accept,
   })

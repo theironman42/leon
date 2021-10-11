@@ -16,7 +16,16 @@ export const GlobalTheme = createMuiTheme({
         warning: {
             main: yellow[500]
         }
-    }
+    },
+    breakpoints: {
+        values: {
+            xs: 0,
+            sm: 600,
+            md: 900,
+            lg: 1200,
+            xl: 1536,
+        },
+    },
 
 })
 
@@ -26,11 +35,11 @@ export const GlobalStylesAppend = (newStyle, theme) => ({
     },
     cancelButton: {
         margin: "12px",
-        backgroundColor : red[100]
+        backgroundColor: red[100]
     },
     saveButton: {
         margin: "12px",
-        backgroundColor : lightBlue[100]
+        backgroundColor: lightBlue[100]
     },
     dialog: {
         margin: "12px"

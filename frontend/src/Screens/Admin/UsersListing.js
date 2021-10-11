@@ -1,28 +1,25 @@
-import MaterialTable, {MTableToolbar} from 'material-table'
-import React, { useEffect, useRef, useState } from 'react'
-import { deleteData, getData, postData, putData } from '../../Utils/backend'
+import MaterialTable from 'material-table'
+import React, { useEffect, useRef } from 'react'
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Button, Dialog, makeStyles } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsersList, updateUser } from '../../actions/userActions';
 import UserForm from '../../Components/Admin/UserForm';
-import { makeStylesGlobal } from '../../theme/GlobalTheme';
+// import { makeStylesGlobal } from '../../theme/GlobalTheme';
 
 
 
-const useStyles = makeStylesGlobal({})
+// const useStyles = makeStylesGlobal({})
 
 
 
 function UsersListing(props) {
 
-    const [openDialog, setOpenDialog] = useState(false)
 
-    const classes = useStyles()
+    //const classes = useStyles()
     const tableRef = useRef();
     const dispatch = useDispatch();
     const userList = useSelector(state => state.userList)
-    const { users, loading, error} = userList
+    const { users } = userList
     useEffect(() => {
         if(!users){
             dispatch(getUsersList())
@@ -30,20 +27,16 @@ function UsersListing(props) {
         return () => {
             
         }
-    }, [])
+    }, [dispatch, users])
 
 
-    console.log(users)
+    // function refreshTable() {
+    //     if (tableRef && tableRef.current) {
+    //         tableRef.current.onQueryChange();
+    //     }
+    // }
 
-    function refreshTable() {
-        if (tableRef && tableRef.current) {
-            tableRef.current.onQueryChange();
-        }
-    }
 
-    const handleClose = () => { setOpenDialog(false) }
-
-    const saveData = (data) => { console.log("save data") }
     const updateData = (data) => { dispatch(updateUser(data)) }
 
     return (

@@ -9,7 +9,7 @@ function RegisterUser(props) {
 
     const dispatch = useDispatch()
     const userRegister = useSelector(state => state.userRegister)
-    const { userInfo, loading, error } = userRegister
+    const { userInfo } = userRegister
     const onSubmit = (data) => {
         dispatch(register(data))
     }

@@ -1,6 +1,6 @@
 import { Box, Button, Container, Grid } from '@material-ui/core'
-import React, { useState } from 'react'
-import { useFormContext, useForm, FormProvider } from "react-hook-form"
+import React from 'react'
+import { useForm, FormProvider } from "react-hook-form"
 import { makeStylesGlobal } from '../../theme/GlobalTheme'
 import { ControlTextField } from '../ControlFields'
 import Dropzone from '../Dropzone'
