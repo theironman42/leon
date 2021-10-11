@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 
+const MyObjectId = mongoose.Types.ObjectId;
+
+let status = ['DRAFT', 'SELLING', 'SOLD', 'SHIPPED'] 
+
 const stampSchema = mongoose.Schema({
     name: {
         type: String,
@@ -22,6 +26,17 @@ const stampSchema = mongoose.Schema({
         type: Number,
         required: true,
         default: 0
+    },
+    status:{
+        type: String,
+        enum: status,
+        required: true,
+        default: status[0]
+    },
+    seller:{
+        type: MyObjectId,
+        ref: 'User',
+        required: true
     }
 
 
