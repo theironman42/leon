@@ -11,7 +11,7 @@ export const GlobalTheme = createMuiTheme({
             main: blue[500],
         },
         error: {
-            main: red[500]
+            main: red[100]
         },
         warning: {
             main: yellow[500]
@@ -52,4 +52,4 @@ export const GlobalStylesAppend = (newStyle, theme) => ({
     ...newStyle
 })
 
-export const makeStylesGlobal = newStyle => makeStyles(theme => GlobalStylesAppend(newStyle, theme));
+export const makeStylesGlobal = newStyle => makeStyles(theme => GlobalStylesAppend(newStyle(theme), theme));

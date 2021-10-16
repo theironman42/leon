@@ -5,7 +5,7 @@ import { ControlTextField } from '../Components/ControlFields'
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../actions/userActions';
 import { makeStylesGlobal } from '../theme/GlobalTheme';
-const useStyles = makeStylesGlobal({})
+const useStyles = makeStylesGlobal(()=>{})
 
 
 function LoginUser(props) {

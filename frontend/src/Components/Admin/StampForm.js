@@ -5,7 +5,7 @@ import { makeStylesGlobal } from '../../theme/GlobalTheme'
 import { ControlTextField } from '../ControlFields'
 import Dropzone from '../Dropzone'
 
-const useStyles = makeStylesGlobal({})
+const useStyles = makeStylesGlobal(()=>{})
 
 function StampForm({
     data,

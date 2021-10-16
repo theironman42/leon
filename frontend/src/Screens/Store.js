@@ -2,7 +2,8 @@ import { Button, Card, CardActions, CardContent, CardMedia, Typography, Grid, Co
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getStampList } from '../actions/productActions'
-const useStyles = makeStyles(theme => ({
+import { makeStylesGlobal } from '../theme/GlobalTheme'
+const useStyles = makeStylesGlobal(theme => ({
     cardMedia: {
         height: "20vh",
         width: 'auto',

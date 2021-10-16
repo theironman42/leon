@@ -10,7 +10,7 @@ import { makeStylesGlobal } from '../../theme/GlobalTheme';
 
 
 
-const useStyles = makeStylesGlobal({})
+const useStyles = makeStylesGlobal(()=>{})
 
 
 
