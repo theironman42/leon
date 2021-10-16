@@ -5,7 +5,7 @@ import { IconButton } from '@material-ui/core';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import axios from 'axios'
 
-const Dropzone = ({ name, isNew, ...props }) => {
+const Dropzone = ({ name, isNew, images, ...props }) => {
   const { register, unregister, setValue, watch } = useFormContext()
   const files = watch(name)
 
@@ -13,26 +13,29 @@ const Dropzone = ({ name, isNew, ...props }) => {
     const ar = [...files];
     ar.splice(i, 1);
     setValue(name, [...ar], { shouldValidate: true });
-    axios.delete(`/api/upload/${file.slice(7)}`)
+    if (isNew || (images && !images.includes(file))) {
+      axios.delete(`/api/upload/${file.slice(7)}`)
+    }
+
   }
 
-  const uploadImage = (imagefile) => {
-    var formData = new FormData();
-    imagefile.forEach((file, i) => { formData.append("image" + i, file); })
-    axios.post('/api/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then((res) => {
-      const newFiles = (!!files?.length && [...files].concat(res.data)) || res.data;
-      console.log("Upload image files",newFiles)
-      setValue(name, newFiles, { shouldValidate: true });
-    })
-  }
+  // const uploadImage = (imagefile) => {
+
+  // }
 
   const onDrop = useCallback(
-    (droppedFiles) => {
-      uploadImage(droppedFiles)
+    (imagefile) => {
+      var formData = new FormData();
+      imagefile.forEach((file, i) => { formData.append("image" + i, file); })
+      axios.post('/api/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then((res) => {
+        const newFiles = (!!files?.length && [...files].concat(res.data)) || res.data;
+        console.log("Upload image files", newFiles)
+        setValue(name, newFiles, { shouldValidate: true });
+      })
     },
     [setValue, name, files],
   );
@@ -41,7 +44,7 @@ const Dropzone = ({ name, isNew, ...props }) => {
     accept: props.accept,
   })
 
-  
+
 
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Stamp from '../models/stampModel.js'
+import { unlinkAsync } from '../routes/uploadRoutes.js'
 
 //GET gets stamps in database
 //TODO make it work with a query (nb of items per page ...)
@@ -7,7 +8,7 @@ import Stamp from '../models/stampModel.js'
 const getStamps = asyncHandler(async (req, res) => {
     const query = Stamp.find({})
     const count = await Stamp.find().merge(query).countDocuments()
-    const stamps = await query.skip(req.query.pageSize * (req.query.pageNumber - 1)).limit(Number(req.query.pageSize)) 
+    const stamps = await query.skip(req.query.pageSize * (req.query.pageNumber - 1)).limit(Number(req.query.pageSize))
     const data = { "data": stamps, total: count, page: Number(req.query.pageNumber) - 1 }
     res.status(200).json(data)
 })
@@ -42,13 +43,19 @@ const updateStamp = asyncHandler(async (req, res) => {
     const { id } = req.params
     const stamp = await Stamp.findById(id)
     if (stamp) {
+        let imagesArray = req.body.images || stamp.images
+        let removedImages = stamp.images.filter(x => !imagesArray.includes(x))
+        await removedImages.forEach((item) => {
+            unlinkAsync(`uploads/${item.slice(7)}`)
+        });
+
         stamp.name = req.body.name || stamp.name
-        stamp.images = req.body.images || stamp.images
         stamp.country = req.body.country || stamp.country
         stamp.description = req.body.description || stamp.description
         stamp.price = req.body.price || stamp.price
         stamp.reference = req.body.reference || stamp.reference
         stamp.status = req.body.status || stamp.status
+        stamp.images = imagesArray
         const updatedStamp = await stamp.save()
         res.status(200).json(updatedStamp)
     } else {

@@ -43,7 +43,7 @@ function StampsAdmin() {
         <div>
             <Dialog onClose={() => { setOpenDialog(false) }} open={openDialog} maxWidth={'md'} fullWidth>
                 <div className={classes.dialog}>
-                    <StampForm onClose={handleClose} onUpdate={saveData} />
+                    <StampForm onClose={handleClose} onUpdate={saveData} isNew />
                 </div>
             </Dialog>
 

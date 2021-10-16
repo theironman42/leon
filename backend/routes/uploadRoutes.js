@@ -6,7 +6,7 @@ import { promisify } from 'util'
 
 const router = express.Router()
 
-const unlinkAsync = promisify(fs.unlink)
+export const unlinkAsync = promisify(fs.unlink)
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {

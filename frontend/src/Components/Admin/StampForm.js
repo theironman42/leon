@@ -52,7 +52,8 @@ function StampForm({
                             <Dropzone
                                 name="images"
                                 accept="image/png, image/jpg, image/jpeg"
-                               
+                                isNew={isNew}
+                                images={data && data.images}
                             />
                         </Grid>
                     </Grid>
