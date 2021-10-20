@@ -3,7 +3,6 @@ import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { makeStylesGlobal } from '../../theme/GlobalTheme'
 import { ControlSelect, ControlTextField } from '../ControlFields'
-import Message from '../Message'
 
 const PASSWORD_SIZE = 2
 
@@ -38,9 +37,6 @@ function UserForm({onSubmit, onCancel, data, isAdmin}) {
             <FormProvider {...methods} >
                 <form onSubmit={handleSubmit((formData)=>onSubmit({...data, ...formData}))}>
                     <Grid container spacing={3}>
-                        <Grid item xs={12}>
-                            <Message message = "COUCOU"></Message>
-                        </Grid>
                         <Grid item xs={12}>
                             <ControlTextField
                                 name="name"

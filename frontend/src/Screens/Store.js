@@ -25,7 +25,6 @@ function Store(props) {
     const dispatch = useDispatch()
     const products = useSelector(state => state.productList)
     const { productList } = products
-    console.log(props);
     const classes = useStyles(props.theme)
 
     useEffect(() => {
@@ -60,11 +59,11 @@ function Store(props) {
     }
 
     const storePage = (products) => {
-        return products.map((item, index) => <>
+        return products.map((item, index) => 
             <Grid item key={index} xs={12} sm={4} md={3} lg={2}  >
                 {productCard(item)}
             </Grid>
-        </>)
+        )
     }
 
     return (

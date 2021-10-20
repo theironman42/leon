@@ -94,7 +94,7 @@ function StampsAdmin() {
                         data={rowData}
                         isNew={false}
                         onUpdate={updateData}
-                        onClose={()=>{}}
+                        onClose={refreshTable}
                     />}
                 actions={[{
                     icon: () => <><DeleteIcon /></>,
