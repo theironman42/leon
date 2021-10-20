@@ -1,9 +1,10 @@
 import MaterialTable from 'material-table'
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsersList, updateUser } from '../../actions/userActions';
+import { adminUpdateUser } from '../../actions/userActions';
 import UserForm from '../../Components/Admin/UserForm';
+import { getData } from '../../Utils/backend';
 // import { makeStylesGlobal } from '../../theme/GlobalTheme';
 
 
@@ -16,28 +17,20 @@ function UsersListing(props) {
 
 
     //const classes = useStyles()
+    
     const tableRef = useRef();
     const dispatch = useDispatch();
-    const userList = useSelector(state => state.userList)
-    const { users } = userList
-    useEffect(() => {
-        if(!users){
-            dispatch(getUsersList())
+    const userInfo = useSelector(state => state.userLogin.userInfo)
+    
+
+    function refreshTable() {
+        if (tableRef && tableRef.current) {
+            tableRef.current.onQueryChange();
         }
-        return () => {
-            
-        }
-    }, [dispatch, users])
+    }
 
 
-    // function refreshTable() {
-    //     if (tableRef && tableRef.current) {
-    //         tableRef.current.onQueryChange();
-    //     }
-    // }
-
-
-    const updateData = (data) => { dispatch(updateUser(data)) }
+    const updateData = (data) => { dispatch(adminUpdateUser(data)).then(refreshTable) }
 
     return (
         <div>
@@ -49,7 +42,20 @@ function UsersListing(props) {
                     { title: "Name", field: "name" },
                     { title: "Role", field: "role" }
                 ]}
-                data={users && users.data}
+                data={query => new Promise((resolve, reject) => {
+                    let url =  "/api/admin/users?";
+                    url += "pageSize=" + query.pageSize;
+                    url += "&pageNumber=" + (query.page + 1);
+                    getData(url, userInfo.token)
+                        .then(({ data }) => {
+                            const result = data
+                            resolve({
+                                data: result.data,
+                                totalCount: result.total,
+                                page: result.page
+                            })
+                        })
+                })}
 
                 options={{
                     pageSize: 20,

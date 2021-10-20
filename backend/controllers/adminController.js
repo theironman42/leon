@@ -6,8 +6,10 @@ import User from '../models/userModel.js'
 // @route  GET /api/admin/users
 // @access Private
 const getUsers = asyncHandler(async (req, res) => {
-    const users = await User.find({}).select('-password')
-    const data = { "data": users, total: users.length, page: 0 }
+    const query = User.find({}).select('-password')
+    const count = await User.find().merge(query).countDocuments()
+    const users = await query.skip(req.query.pageSize * (req.query.pageNumber - 1)).limit(Number(req.query.pageSize))
+    const data = { "data": users, total: count, page:  Number(req.query.pageNumber) - 1  }
     res.status(200).json(data)
 })
 

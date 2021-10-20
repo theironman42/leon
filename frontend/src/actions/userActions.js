@@ -191,7 +191,7 @@ export const getUsersList = () => async (dispatch, getState) => {
     }
 }
 
-export const updateUser = (user) => async (dispatch, getState) => {
+export const adminUpdateUser = (user) => async (dispatch, getState) => {
     try {
 
         const { userLogin: { userInfo } } = getState()
@@ -206,16 +206,20 @@ export const updateUser = (user) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await axios.put(
+        const response = await axios.put(
             `/api/admin/users/${user._id}`,
             user,
             config
         )
 
+        const { data } = response
+
         dispatch({
             type: USER_UPDATE_SUCCESS,
             payload: data
         })
+
+        return response
 
     } catch (error) {
         const message = error.response && error.response.data.message ? error.response.data.message : error.message

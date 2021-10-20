@@ -13,16 +13,13 @@ function Message({ message, color }) {
                 backgroundColor: color || theme.palette.error.main,
                 textAlign: 'center'
             },
-            message:{
-                
-            }
         }
     )})
 
     const classes = useStyles()
     return (
         <Paper className={classes.paperMessage}>
-            <Typography className={classes.message}>{message}</Typography>
+            <Typography >{message}</Typography>
         </Paper>
     )
 }
