@@ -1,34 +1,27 @@
 import axios from "axios";
 
+const config = token => ({
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`
+  }
+})
 
 export function getData(url, token) {
 
-  const config = token && {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    }
-  }
-
-  return axios.get(url, config)
+  return axios.get(url, token && config(token))
 
 }
 
 export function postData(url, data, token) {
-  return axios
-    .post(url, data)
+  return axios.post(url, data, token && config(token))
 }
 
-export function putData(url, data, callback, token) {
-  axios
-    .put(url, data)
-    .then(res => { if (callback) callback(res.data) })
-    .catch(err => console.error(err));
+export function putData(url, data, token) {
+  return axios.put(url, data, token && config(token))
+
 }
 
-export function deleteData(url, callback, token) {
-  axios
-    .delete(url)
-    .then(res => { if (callback) callback(res.data) })
-    .catch(err => console.error(err));
+export function deleteData(url, token) {
+  return axios.delete(url, token && config(token))
 }

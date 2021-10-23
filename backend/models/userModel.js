@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from 'bcryptjs'
 
 let role = ['USER', 'SELLER', 'ADMIN', 'SUPERADMIN']
+const MyObjectId = mongoose.Types.ObjectId;
 
 
 const userSchema = mongoose.Schema({
@@ -23,6 +24,22 @@ const userSchema = mongoose.Schema({
         enum: role,
         required: true,
         default: 'USER'
+    },
+    cart:{
+        products: {
+            type: [MyObjectId],
+            ref: 'Stamp'
+        },
+        total:{
+            type: Number,
+            default: function () {
+                let total = 0;
+                this.cart.products.forEach(stamp => {
+                    total += stamp.price
+                });
+                return total
+            }
+        }
     }
 }, {
     timestamps: true
