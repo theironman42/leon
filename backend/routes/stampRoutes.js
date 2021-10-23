@@ -5,10 +5,10 @@ import { sellerMW } from '../middleware/sellerMiddleware.js'
 
 const router = express.Router()
 
+router.route('/:id').get(getStampDetail)
 router.route('/').get(getStamps)
 router.route('/').post(protect, sellerMW, addStamp)
 router.route('/:id').delete(protect, sellerMW, deleteStamp)
 router.route('/:id').put(protect, sellerMW, updateStamp)
-router.route('/:id').get(getStampDetail)
 
 export default router

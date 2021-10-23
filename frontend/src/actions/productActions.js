@@ -153,9 +153,9 @@ export const getStampDetail = (id) => async (dispatch) => {
         })
 
         let url =  `/api/stamps/${id}`;
-
+        console.log(url)
         const { data } = await axios.get(url)
-        console.log(data)
+        console.log('data', data)
 
         dispatch({
             type: PRODUCT_DETAIL_SUCCESS,
