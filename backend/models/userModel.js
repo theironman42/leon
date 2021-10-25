@@ -32,9 +32,10 @@ const userSchema = mongoose.Schema({
         },
         total:{
             type: Number,
-            default: function () {
+            default: async function () {
                 let total = 0;
-                this.cart.products.forEach(stamp => {
+                const itemsArray = await Stamp.find({'_id': {$in: this.cart.products}})
+                itemsArray.forEach(stamp => {
                     total += stamp.price
                 });
                 return total

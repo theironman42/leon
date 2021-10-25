@@ -37,6 +37,7 @@ function Navbar() {
           <Link to="/login"><Typography className={classes.menuItem}>Login</Typography></Link>
           <Link to="/register"><Typography className={classes.menuItem}>Register</Typography></Link>
           <Link to="/profile"><Typography className={classes.menuItem}>Profile</Typography></Link>
+          <Link to="/cart"><Typography className={classes.menuItem}>Cart</Typography></Link>
           <Button to="/logout" onClick={handleLogout}><Typography className={classes.menuItem}>Logout</Typography></Button>
         </Toolbar>
       </Container>

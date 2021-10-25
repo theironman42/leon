@@ -8,12 +8,14 @@ import User from '../models/userModel.js'
 // @access Private
 const getCart = asyncHandler(async (req, res) => {
     const cart = req.user.cart
-    const itemsArray = []
-    cart.products.forEach(product => {
-        itemsArray.push(Stamp.findById(product))
+    let total = 0
+    const itemsArray = await Stamp.find({'_id': {$in: cart.products}})
+    itemsArray.forEach(stamp => {
+        total += stamp.price
     });
+    console.log("itemsArray", cart)
     cart.products = itemsArray
-    res.status(200).json(cart)
+    res.status(200).json({total: total, products: itemsArray})
 })
 
 // @desc   Add item to cart
