@@ -13,7 +13,7 @@ const getCart = asyncHandler(async (req, res) => {
     itemsArray.forEach(stamp => {
         total += stamp.price
     });
-    console.log("itemsArray", cart)
+    console.log("itemsArray", itemsArray)
     cart.products = itemsArray
     res.status(200).json({total: total, products: itemsArray})
 })

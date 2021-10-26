@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs'
+import Stamp from "./stampModel.js";
 
 let role = ['USER', 'SELLER', 'ADMIN', 'SUPERADMIN']
 const MyObjectId = mongoose.Types.ObjectId;
@@ -30,17 +31,18 @@ const userSchema = mongoose.Schema({
             type: [MyObjectId],
             ref: 'Stamp'
         },
-        total:{
-            type: Number,
-            default: async function () {
-                let total = 0;
-                const itemsArray = await Stamp.find({'_id': {$in: this.cart.products}})
-                itemsArray.forEach(stamp => {
-                    total += stamp.price
-                });
-                return total
-            }
-        }
+        // total:{
+        //     type: Number,
+        //     default: async function () {
+        //         let total = 0;
+        //         const itemsArray = await Stamp.find({'_id': {$in: this.cart.products}})
+        //         console.log("itemsArray in userModel: ", itemsArray)
+        //         itemsArray.forEach(stamp => {
+        //             total += stamp.price
+        //         });
+        //         return total
+        //     }
+        // }
     }
 }, {
     timestamps: true
