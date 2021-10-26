@@ -8,14 +8,10 @@ import User from '../models/userModel.js'
 // @access Private
 const getCart = asyncHandler(async (req, res) => {
     const cart = req.user.cart
-    let total = 0
     const itemsArray = await Stamp.find({'_id': {$in: cart.products}})
-    itemsArray.forEach(stamp => {
-        total += stamp.price
-    });
-    console.log("itemsArray", itemsArray)
+    
     cart.products = itemsArray
-    res.status(200).json({total: total, products: itemsArray})
+    res.status(200).json({total: cart.total, products: itemsArray})
 })
 
 // @desc   Add item to cart
@@ -37,8 +33,10 @@ const addToCart = asyncHandler(async (req, res) => {
 // @route  DELETE /api/cart
 // @access Private
 const removeFromCart = asyncHandler(async (req, res) => {
+    console.log('called')
     const user = await User.findById(req.user._id).select('-password')
-    const indexToDelete = user.cart.products.indexOf(req.body.productId)
+    const indexToDelete = user.cart.products.indexOf(req.params.productId)
+    console.log('indexToDelete: ', indexToDelete, 'id: ')
     user.cart.products.splice(indexToDelete, 1)
     const updatedUser = user.save()
     res.status(200).json(updatedUser.cart)

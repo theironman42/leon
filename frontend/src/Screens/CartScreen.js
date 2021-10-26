@@ -2,7 +2,7 @@ import { Button, Container, Grid, Paper, Table, TableBody, TableCell, TableConta
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { makeStylesGlobal } from '../theme/GlobalTheme'
-import { getData } from '../Utils/backend'
+import { deleteData, getData } from '../Utils/backend'
 import ClearIcon from '@material-ui/icons/Clear';
 
 const useStyles = makeStylesGlobal((theme) => ({
@@ -45,7 +45,10 @@ function CartScreen(props) {
         }
     }, [cart, history, token, userLogin])
 
-    console.log(cart)
+    function deleteFromCart(id) {
+        deleteData(`/api/cart/${id}`, token).then((res)=>setCart(res.data))
+    }
+
     return (
         <div>
             <h1>Cart</h1>
@@ -68,7 +71,7 @@ function CartScreen(props) {
                                                 <TableCell style={{ width: '10%' }} ><img className={classes.productImages} src={item.images[0]} alt="stamp" /></TableCell>
                                                 <TableCell >{item.name}</TableCell>
                                                 <TableCell align='right'>${Number(item.price).toFixed(2)}</TableCell>
-                                                <TableCell style={{ width: '5%' }} ><Button onClick={()=>console.log("removed")} > <ClearIcon /> </Button></TableCell>
+                                                <TableCell style={{ width: '5%' }} ><Button onClick={()=>deleteFromCart(item._id)} > <ClearIcon /> </Button></TableCell>
                                             </TableRow>
                                         ))
                                     }
@@ -78,7 +81,7 @@ function CartScreen(props) {
                         {cart.products.map((item, index) => (<Grid item xs={12} key={index}>{item.name}</Grid>))}
                     </Grid> */}
                     </Grid>
-                    <Grid item xs={0} md={1} >
+                    <Grid item xs={false} md={1} >
                         
                     </Grid>
                     <Grid item xs={12} md={4}>
@@ -87,7 +90,7 @@ function CartScreen(props) {
                             <Typography> TOTAL </Typography>
                         </Grid>
                         <Grid item xs={12} className={classes.putInCartItems}>
-                            <Typography> Price: ${cart.total} </Typography>
+                            <Typography> Price: ${Number(cart.total).toFixed(2)} </Typography>
                         </Grid>
                         <Grid item xs={12} className={classes.putInCartItems}>
                             <Button variant='outlined' onClick={()=>{console.log("placeOeder")}}> Order </Button>

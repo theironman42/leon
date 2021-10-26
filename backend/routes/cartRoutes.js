@@ -3,10 +3,9 @@ import { addToCart, getCart, removeFromCart } from '../controllers/cartControlle
 import { protect } from '../middleware/authMiddleware.js'
 
 const router = express.Router()
-
+router.route('/:productId').delete(protect, removeFromCart)
 router.route('/')
     .get(protect, getCart)
-    .delete(protect, removeFromCart)
     .put(protect, addToCart)
 
 export default router
