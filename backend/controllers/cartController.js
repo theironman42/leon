@@ -33,13 +33,12 @@ const addToCart = asyncHandler(async (req, res) => {
 // @route  DELETE /api/cart
 // @access Private
 const removeFromCart = asyncHandler(async (req, res) => {
-    console.log('called')
     const user = await User.findById(req.user._id).select('-password')
     const indexToDelete = user.cart.products.indexOf(req.params.productId)
-    console.log('indexToDelete: ', indexToDelete, 'id: ')
     user.cart.products.splice(indexToDelete, 1)
-    const updatedUser = user.save()
-    res.status(200).json(updatedUser.cart)
+    const updatedUser = await user.save()
+    const itemsArray = await Stamp.find({'_id': {$in: updatedUser.cart.products}})
+    res.status(200).json({total: updatedUser.cart.total, products: itemsArray}).send()
 })
 
 export {

@@ -52,7 +52,6 @@ userSchema.pre('save', async function (next) {
     if (this.isModified('cart')) {
         let total = 0;
         const itemsArray = await Stamp.find({ '_id': { $in: this.cart.products } })
-        console.log("itemsArray in userModel: ", itemsArray)
         itemsArray.forEach(stamp => {
             total += stamp.price
         });
