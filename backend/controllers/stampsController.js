@@ -3,10 +3,9 @@ import Stamp from '../models/stampModel.js'
 import { unlinkAsync } from '../routes/uploadRoutes.js'
 
 //GET gets stamps in database
-//TODO make it work with a query (nb of items per page ...)
 // @route GET /api/stamps
 const getStamps = asyncHandler(async (req, res) => {
-    const query = Stamp.find({})
+    const query = Stamp.find({}).where('status').equals('SELLING')
     const count = await Stamp.find().merge(query).countDocuments()
     const stamps = await query.skip(req.query.pageSize * (req.query.pageNumber - 1)).limit(Number(req.query.pageSize))
     const data = { "data": stamps, total: count, page: Number(req.query.pageNumber) - 1 }

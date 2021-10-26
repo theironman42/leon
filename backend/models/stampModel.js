@@ -37,6 +37,13 @@ const stampSchema = mongoose.Schema({
         type: MyObjectId,
         ref: 'User',
         required: true
+    },
+    isBlocked:{
+        type: Date
+    },
+    blockingUser:{
+        type: MyObjectId,
+        ref: 'User'
     }
 
 

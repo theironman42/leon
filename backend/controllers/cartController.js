@@ -3,6 +3,8 @@ import asyncHandler from 'express-async-handler'
 import Stamp from '../models/stampModel.js'
 import User from '../models/userModel.js'
 
+const BLOCKED_STAMP_TIME = 15
+
 // @desc   Get cart
 // @route  GET /api/cart
 // @access Private
@@ -40,6 +42,47 @@ const removeFromCart = asyncHandler(async (req, res) => {
     const itemsArray = await Stamp.find({'_id': {$in: updatedUser.cart.products}})
     res.status(200).json({total: updatedUser.cart.total, products: itemsArray}).send()
 })
+
+//TODO TEST THIS FUNCTION
+// @desc   Get cart
+// @route  GET /api/cart/block
+// @access Private
+const blockCart = asyncHandler(async (req, res) => {
+    const cart = req.user.cart
+    const userId = req.user._id
+    const itemsArray = await Stamp.find({'_id': {$in: cart.products}})
+    let timeNow = Date.now() / (1000 * 60)
+    itemsArray.forEach((stamp, index) => {
+        const stampTime = stamp.isBlocked / (1000 * 60) 
+        const difference = timeNow - stampTime
+        if (difference > BLOCKED_STAMP_TIME || stamp.blockingUser === userId){
+            stamp.blockingUser = userId
+            stamp.isBlocked = timeNow
+            stamp.save() 
+        }else itemsArray.splice(index,1)
+    });
+    
+    cart.products = itemsArray
+    res.status(200).json({total: cart.total, products: itemsArray})
+})
+
+//TODO TEST THIS FUNCTION
+// @desc   Get cart
+// @route  GET /api/cart/block
+// @access Private
+const buyCart = asyncHandler(async (req, res) => {
+    const cart = req.user.cart
+    const userId = req.user._id
+    const itemsArray = await Stamp.find({'_id': {$in: cart.products}})
+    itemsArray.forEach((stamp, index) => {
+        stamp.status='SOLD'
+    });
+    
+    cart.products = itemsArray
+    res.status(200).json({total: cart.total, products: itemsArray})
+})
+
+
 
 export {
     getCart,

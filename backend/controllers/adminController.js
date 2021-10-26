@@ -1,5 +1,6 @@
 
 import asyncHandler from 'express-async-handler'
+import Stamp from '../models/stampModel.js'
 import User from '../models/userModel.js'
 
 // @desc   Get users list
@@ -40,7 +41,16 @@ const updateUser = asyncHandler(async (req, res) => {
     }
 })
 
+const getStampsAdmin = asyncHandler(async (req, res) => {
+    const query = Stamp.find({})
+    const count = await Stamp.find().merge(query).countDocuments()
+    const stamps = await query.skip(req.query.pageSize * (req.query.pageNumber - 1)).limit(Number(req.query.pageSize))
+    const data = { "data": stamps, total: count, page: Number(req.query.pageNumber) - 1 }
+    res.status(200).json(data)
+})
+
 export {
     getUsers,
-    updateUser
+    updateUser,
+    getStampsAdmin
 }

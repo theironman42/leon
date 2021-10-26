@@ -2,7 +2,7 @@ import { Box, Button, Container, Grid } from '@material-ui/core'
 import React from 'react'
 import { useForm, FormProvider } from "react-hook-form"
 import { makeStylesGlobal } from '../../theme/GlobalTheme'
-import { ControlTextField } from '../ControlFields'
+import { ControlSelect, ControlTextField } from '../ControlFields'
 import Dropzone from '../Dropzone'
 
 const useStyles = makeStylesGlobal(()=>{})
@@ -20,7 +20,9 @@ function StampForm({
         description: data ? data.description : "",
         price: data ? data.price : "",
         reference: data ? data.reference : "",
-        images: data ? data.images : []
+        images: data ? data.images : [],
+        status: data ? data.status : 'DRAFT',
+        
     }
     const methods = useForm({ defaultValues })
     const { handleSubmit, control, formState: { errors } } = methods
@@ -47,6 +49,16 @@ function StampForm({
                         </Grid>
                         <Grid item xs={12}>
                             <ControlTextField name="description" control={control} label="Description" fullWidth={true} />
+                        </Grid>
+                        <Grid item xs={12}>
+                        <ControlSelect
+                                name="status"
+                                control={control}
+                                required={true}
+                                label="Status"
+                                fullWidth={true}
+                                values={['DRAFT', 'SELLING', 'SOLD', 'SHIPPED']}
+                                error={!!errors.status} />
                         </Grid>
                         <Grid item xs={12}>
                             <Dropzone

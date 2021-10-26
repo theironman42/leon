@@ -4,7 +4,7 @@ import StampForm from '../../Components/Admin/StampForm'
 import { getData } from '../../Utils/backend'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Button, Dialog } from '@material-ui/core'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { uploadProduct, deleteProduct, editProduct } from '../../actions/productActions';
 import { makeStylesGlobal } from '../../theme/GlobalTheme';
 
@@ -17,7 +17,8 @@ const useStyles = makeStylesGlobal(()=>{})
 function StampsAdmin() {
 
     const [openDialog, setOpenDialog] = useState(false)
-
+    const userLogin = useSelector(state => state.userLogin)
+    const token = userLogin && userLogin.userInfo && userLogin.userInfo.token
     const classes = useStyles()
     const tableRef = useRef();
     const dispatch = useDispatch();
@@ -70,10 +71,10 @@ function StampsAdmin() {
                     { title: "Price", field: "price" }
                 ]}
                 data={query => new Promise((resolve, reject) => {
-                    let url =  "/api/stamps?";
+                    let url =  "/api/admin/stamps?";
                     url += "pageSize=" + query.pageSize;
                     url += "&pageNumber=" + (query.page + 1);
-                    getData(url)
+                    getData(url, token)
                         .then(({ data }) => {
                             const result = data
                             resolve({
