@@ -1,5 +1,6 @@
 
 import asyncHandler from 'express-async-handler'
+import { startSession } from 'mongoose'
 import Stamp from '../models/stampModel.js'
 import User from '../models/userModel.js'
 
@@ -48,6 +49,8 @@ const removeFromCart = asyncHandler(async (req, res) => {
 // @route  GET /api/cart/block
 // @access Private
 const blockCart = asyncHandler(async (req, res) => {
+    //const session = startSession()
+    
     const cart = req.user.cart
     const userId = req.user._id
     const itemsArray = await Stamp.find({'_id': {$in: cart.products}})
