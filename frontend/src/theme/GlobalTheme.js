@@ -1,6 +1,7 @@
 import { createMuiTheme } from '@material-ui/core'
 import { blue, green, lightBlue, red, yellow } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/styles';
+import {greatVibesRegular} from './gvr'
 
 export const GlobalTheme = createMuiTheme({
     palette: {
@@ -26,6 +27,13 @@ export const GlobalTheme = createMuiTheme({
             xl: 1536,
         },
     },
+    overrides: {
+        MuiCssBaseline: {
+          '@global': {
+            '@font-face': [greatVibesRegular],
+          },
+        },
+      },
 
 })
 
@@ -48,6 +56,9 @@ export const GlobalStylesAppend = (newStyle, theme) => ({
         textAlign: 'right',
         marginRight: '12px',
 
+    },
+    title:{
+        fontFamily: "GreatVibes-Regular"  
     },
     ...newStyle
 })

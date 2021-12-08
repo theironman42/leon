@@ -11,10 +11,12 @@ import ProductScreen from '../Screens/ProductSreen'
 import CartScreen from '../Screens/CartScreen'
 import ExpertiseListing from '../Screens/ExpertiseListing'
 import HeadToolBar from '../Components/HeadToolbar'
+import { CssBaseline } from '@material-ui/core'
 
 function AppRoutes(props) {
     return (
         <>
+        <CssBaseline />
         <HeadToolBar />
         {/* <Navbar /> */}
         <Switch>
