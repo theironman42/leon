@@ -1,11 +1,9 @@
 import MaterialTable, { MTableToolbar } from 'material-table'
 import React, { useEffect, useRef, useState } from 'react'
-import StampForm from '../../Components/Admin/StampForm'
-import { getData, postData, putData } from '../../Utils/backend'
+import { deleteData, getData, postData, putData } from '../../Utils/backend'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Button, Dialog } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadProduct, deleteProduct, editProduct } from '../../actions/productActions';
 import { makeStylesGlobal } from '../../theme/GlobalTheme';
 import ExpertiseForm from '../../Components/Admin/ExpertiseForm';
 
@@ -99,7 +97,7 @@ function ExpertsAdmin() {
                     />}
                 actions={[{
                     icon: () => <><DeleteIcon /></>,
-                    onClick: (event, rowData) => { dispatch(deleteProduct(rowData._id)).then(refreshTable) },
+                    onClick: (event, rowData) => { refreshTable() },
                     tooltip: "Delete expertise"
                 }
                 ]}

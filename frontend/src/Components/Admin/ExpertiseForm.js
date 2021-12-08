@@ -2,7 +2,7 @@ import { Box, Button, Container, Grid } from '@material-ui/core'
 import React from 'react'
 import { useForm, FormProvider } from "react-hook-form"
 import { makeStylesGlobal } from '../../theme/GlobalTheme'
-import { ControlSelect, ControlTextField } from '../ControlFields'
+import { ControlTextField } from '../ControlFields'
 import Dropzone from '../Dropzone'
 
 const useStyles = makeStylesGlobal(() => { })
@@ -20,7 +20,7 @@ function ExpertiseForm({
         image: data ? [data.image] : undefined,
     }
     const methods = useForm({ defaultValues })
-    const { handleSubmit, control, formState: { errors } } = methods
+    const { handleSubmit, control } = methods
     const onSubmit = formData => { onClose(); onUpdate({ ...data, ...formData }) }
 
     console.log(classes)

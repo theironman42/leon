@@ -40,7 +40,7 @@ const Dropzone = ({ name, isNew, images, oneOnly, ...props }) => {
         setValue(name, oneOnly ? [newFiles[0]] : newFiles, { shouldValidate: true });
       })
     },
-    [setValue, name, files],
+    [oneOnly, files, setValue, name],
   );
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,

@@ -9,11 +9,14 @@ import ProfileScreen from '../Screens/ProfileScreen'
 import AdminRoutes from './AdminRoutes'
 import ProductScreen from '../Screens/ProductSreen'
 import CartScreen from '../Screens/CartScreen'
+import ExpertiseListing from '../Screens/ExpertiseListing'
+import HeadToolBar from '../Components/HeadToolbar'
 
 function AppRoutes(props) {
     return (
         <>
-        <Navbar />
+        <HeadToolBar />
+        {/* <Navbar /> */}
         <Switch>
           <Route path="/register" component={RegisterUser} />
           <Route path="/profile" component={ProfileScreen} />
@@ -21,8 +24,8 @@ function AppRoutes(props) {
           <PrivateRoute path="/admin" authorized={['SELLER','ADMIN']} component={AdminRoutes} />
           <Route path='/cart' component={CartScreen} />
           <Route path="/product/:id" component={ProductScreen} />
-          <Route path="/" component={Store} />
-          
+          <Route path="/store" component={Store} />
+          <Route path="/" component={ExpertiseListing} />
 
         </Switch>
         </>

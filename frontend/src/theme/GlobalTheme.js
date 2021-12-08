@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 export const GlobalTheme = createMuiTheme({
     palette: {
         primary: {
-            main: green[500],
+            main: '#ffffff',
         },
         secondary: {
             main: blue[500],

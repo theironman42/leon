@@ -5,7 +5,7 @@ import { getData, putData } from '../../Utils/backend'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Button, Dialog } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
-import { uploadProduct, deleteProduct, editProduct } from '../../actions/productActions';
+import { uploadProduct, deleteProduct } from '../../actions/productActions';
 import { makeStylesGlobal } from '../../theme/GlobalTheme';
 
 
