@@ -1,20 +1,21 @@
-import MaterialTable, {MTableToolbar} from 'material-table'
+import MaterialTable, { MTableToolbar } from 'material-table'
 import React, { useEffect, useRef, useState } from 'react'
 import StampForm from '../../Components/Admin/StampForm'
-import { getData, putData } from '../../Utils/backend'
+import { getData, postData, putData } from '../../Utils/backend'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Button, Dialog } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadProduct, deleteProduct, editProduct } from '../../actions/productActions';
 import { makeStylesGlobal } from '../../theme/GlobalTheme';
+import ExpertiseForm from '../../Components/Admin/ExpertiseForm';
 
 
 
-const useStyles = makeStylesGlobal(()=>{})
+const useStyles = makeStylesGlobal(() => { })
 
 
 
-function StampsAdmin() {
+function ExpertsAdmin() {
 
     const [openDialog, setOpenDialog] = useState(false)
     const userLogin = useSelector(state => state.userLogin)
@@ -23,9 +24,9 @@ function StampsAdmin() {
     const tableRef = useRef();
     const dispatch = useDispatch();
     useEffect(() => {
-        
+
         return () => {
-            
+
         }
     }, [])
 
@@ -37,41 +38,39 @@ function StampsAdmin() {
 
     const handleClose = () => { setOpenDialog(false) }
 
-    const saveData = (data) => { dispatch(uploadProduct(data)).then(()=>refreshTable()) }
-    const updateData = (data) => { putData(`/api/admin/stamps/${data._id}`, data, token).then(()=>refreshTable()) }
+    const saveData = (data) => { postData('/api/expertise', data, token).then(() => refreshTable()) }
+    const updateData = (data) => { putData(`/api/expertise/${data._id}`, data, token).then(() => refreshTable()) }
 
     return (
         <div>
             <Dialog onClose={() => { setOpenDialog(false) }} open={openDialog} maxWidth={'md'} fullWidth>
                 <div className={classes.dialog}>
-                    <StampForm onClose={handleClose} onUpdate={saveData} isNew />
+                    <ExpertiseForm onClose={handleClose} onUpdate={saveData} isNew />
                 </div>
             </Dialog>
 
             <MaterialTable
-                title="Stamps"
+                title="Expertises"
                 components={{
                     Toolbar: props => (
                         <div>
                             <div>
-                            <MTableToolbar {...props} />
+                                <MTableToolbar {...props} />
                             </div>
                             <div className={classes.newButton}>
                                 <Button variant={'outlined'} onClick={() => setOpenDialog(true)}>New</Button>
                             </div>
                         </div>
-                        
+
                     )
                 }}
                 tableRef={tableRef}
                 columns={[
-                    { title: "Name", field: "name" },
                     { title: "Image", field: "image" },
-                    { title: "Country", field: "country" },
-                    { title: "Price", field: "price" }
+                    { title: "Reference", field: "reference" },
                 ]}
                 data={query => new Promise((resolve, reject) => {
-                    let url =  "/api/admin/stamps?";
+                    let url = "/api/expertise?";
                     url += "pageSize=" + query.pageSize;
                     url += "&pageNumber=" + (query.page + 1);
                     getData(url, token)
@@ -91,16 +90,17 @@ function StampsAdmin() {
                     actionsColumnIndex: -1,
                 }}
                 detailPanel={rowData =>
-                    <StampForm
+                    <ExpertiseForm
                         data={rowData}
                         isNew={false}
                         onUpdate={updateData}
                         onClose={refreshTable}
+                        onlyOne
                     />}
                 actions={[{
                     icon: () => <><DeleteIcon /></>,
                     onClick: (event, rowData) => { dispatch(deleteProduct(rowData._id)).then(refreshTable) },
-                    tooltip: "Delete stamp"
+                    tooltip: "Delete expertise"
                 }
                 ]}
 
@@ -109,4 +109,4 @@ function StampsAdmin() {
     )
 }
 
-export default StampsAdmin
+export default ExpertsAdmin

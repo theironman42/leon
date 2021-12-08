@@ -1,6 +1,5 @@
 
 import asyncHandler from 'express-async-handler'
-import { startSession } from 'mongoose'
 import Stamp from '../models/stampModel.js'
 import User from '../models/userModel.js'
 

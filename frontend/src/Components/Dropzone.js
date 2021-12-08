@@ -5,7 +5,7 @@ import { IconButton } from '@material-ui/core';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import axios from 'axios'
 
-const Dropzone = ({ name, isNew, images, ...props }) => {
+const Dropzone = ({ name, isNew, images, oneOnly, ...props }) => {
   const { register, unregister, setValue, watch } = useFormContext()
   const files = watch(name)
 
@@ -26,15 +26,18 @@ const Dropzone = ({ name, isNew, images, ...props }) => {
   const onDrop = useCallback(
     (imagefile) => {
       var formData = new FormData();
-      imagefile.forEach((file, i) => { formData.append("image" + i, file); })
-      axios.post('/api/upload', formData, {
+      if (oneOnly) {
+        formData.append("image", imagefile[0]);
+      } else {
+        imagefile.forEach((file, i) => { formData.append("image" + i, file); })
+      } axios.post('/api/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }).then((res) => {
         const newFiles = (!!files?.length && [...files].concat(res.data)) || res.data;
         console.log("Upload image files", newFiles)
-        setValue(name, newFiles, { shouldValidate: true });
+        setValue(name, oneOnly ? [newFiles[0]] : newFiles, { shouldValidate: true });
       })
     },
     [setValue, name, files],

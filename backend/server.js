@@ -8,6 +8,7 @@ import adminRoutes from './routes/adminRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import cartRoutes from './routes/cartRoutes.js'
+import expertiseRoutes from './routes/expertiseRoutes.js'
 
 dotenv.config()
 connectDB()
@@ -27,6 +28,7 @@ app.use('/api/upload', uploadRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/admin', adminRoutes)
 app.use('/api/cart', cartRoutes)
+app.use('/api/expertise', expertiseRoutes)
 
 const __dirname = path.resolve()
 app.use('/image', express.static(path.join(__dirname, '/uploads')))
