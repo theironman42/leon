@@ -27,10 +27,11 @@ const deleteExpertise = asyncHandler(async (req, res) => {
 //GET gets expertise in database with a query
 // @route GET /api/expertise
 const getExpertises = asyncHandler(async (req, res) => {
+    console.log(req.query)
     const query = Expertise.find({})
     const count = await Expertise.find().merge(query).countDocuments()
-    const expertises = await query.skip(req.query.pageSize * (req.query.pageNumber - 1)).limit(Number(req.query.pageSize))
-    const data = { "data": expertises, total: count, page: Number(req.query.pageNumber) - 1 }
+    const expertises = await query.skip(req.query.pageSize * (req.query.pageNumber)).limit(Number(req.query.pageSize))
+    const data = { "data": expertises, total: count, page: Number(req.query.pageNumber) }
     res.status(200).json(data)
 })
 

@@ -1,37 +1,69 @@
-import { Container, Grid, Typography } from '@material-ui/core'
+import { Card, CardContent, CardMedia, Container, Grid, TablePagination, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
 import { makeStylesGlobal } from '../theme/GlobalTheme'
 import { getData } from '../Utils/backend'
 
-const useStyles = makeStylesGlobal(()=>({
-    pageTitle:{
+const useStyles = makeStylesGlobal(() => ({
+    pageTitle: {
         marginTop: "3em"
+    },
+    expertiseImage: {
+        height: '40vh',
+        width: 'auto',
+        marginLeft: "auto",
+        marginRight: "auto"
     }
 }))
 
 
 
-function ExpertiseListing() {
+function ExpertiseListing(props) {
     const classes = useStyles()
     const [expertiseList, setExpertiseList] = useState(undefined)
+    const urlParams = new URLSearchParams(props.location.search)
+    const pageNumber = (urlParams && urlParams.get('pageNumber')) || 0
+    
 
     useEffect(() => {
-        getData("/api/expertise").then((res)=>setExpertiseList(res.data.data))
+        getData(`/api/expertise?pageSize=8&pageNumber=${pageNumber}`).then((res) => setExpertiseList(res.data))
         return () => {
-            
+
         }
-    }, [])
-    return (
+    }, [pageNumber])
+    return expertiseList?(
         <Container>
-        <Typography variant='h4' className={classes.pageTitle} >Expertises</Typography>
-        <Grid container>
-            {expertiseList && expertiseList.map((item, index)=>(
-                <Grid item xs={12} sm={6}>
-                    {item.reference}
+            <Typography gutterBottom variant='h4' className={classes.pageTitle} >Expertises</Typography>
+            <Grid container spacing={3}>
+                {expertiseList && expertiseList.data.map((item, index) => (
+                    <Grid item xs={12} md={6} key={index}>
+                        <Card onClick={() => console.log("clicked")}>
+                            <CardMedia
+                                component='img'
+                                title="expertise"
+                                image={item.image}
+                                className={classes.expertiseImage}
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                    {item.reference}
+                                </Typography>
+                            </CardContent>
+                        </Card>
                     </Grid>
-            ))}
-        </Grid>
+                ))}
+            </Grid>
+            <TablePagination
+            rowsPerPageOptions={[]}
+                component="div"
+                rowsPerPage={8}
+                count={expertiseList.total}
+                page={expertiseList.page}
+                onChangePage={(event, newPage)=>{console.log(newPage);props.history.push(`/?pageNumber=${newPage}`)}}
+            />
         </Container>
+    ) :
+    (
+        <div>LOADING . . .</div>
     )
 }
 
