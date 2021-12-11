@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStylesGlobal } from '../theme/GlobalTheme';
+import {Link} from 'react-router-dom'
 
 const useStyles = makeStylesGlobal((theme) => ({
   root: {
@@ -27,9 +28,11 @@ export default function HeadToolBar() {
           {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton> */}
+          <Link to='/' style={{ textDecoration: 'none', color:'black' }}>
           <Typography variant="h3" className={classes.title}>
             Belgian Professional Stamps Experts
           </Typography>
+          </Link>
           {/* <Button color="inherit">Login</Button> */}
         </Toolbar>
       </AppBar>

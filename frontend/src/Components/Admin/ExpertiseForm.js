@@ -34,7 +34,7 @@ function ExpertiseForm({
                             <ControlTextField name="reference" control={control} label="Ref" fullWidth={true} />
                         </Grid>
                         <Grid item xs={12}>
-                            <ControlTextField name="description" control={control} label="Description" fullWidth={true} />
+                            <ControlTextField multiline name="description" control={control} label="Description" fullWidth={true} />
                         </Grid>
                         <Grid item xs={12}>
                             <Dropzone
