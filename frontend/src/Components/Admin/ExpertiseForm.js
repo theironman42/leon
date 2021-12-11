@@ -2,7 +2,7 @@ import { Box, Button, Container, Grid } from '@material-ui/core'
 import React from 'react'
 import { useForm, FormProvider } from "react-hook-form"
 import { makeStylesGlobal } from '../../theme/GlobalTheme'
-import { ControlTextField } from '../ControlFields'
+import { ControlRTE, ControlTextField, VMuiTextEditor } from '../ControlFields'
 import Dropzone from '../Dropzone'
 
 const useStyles = makeStylesGlobal(() => { })
@@ -20,10 +20,9 @@ function ExpertiseForm({
         image: data ? [data.image] : undefined,
     }
     const methods = useForm({ defaultValues })
-    const { handleSubmit, control } = methods
+    const { handleSubmit, control, setValue } = methods
     const onSubmit = formData => { onClose(); onUpdate({ ...data, ...formData }) }
 
-    console.log(classes)
     return (
         <Container>
             <h1>Expertise Form</h1>
@@ -34,7 +33,7 @@ function ExpertiseForm({
                             <ControlTextField name="reference" control={control} label="Ref" fullWidth={true} />
                         </Grid>
                         <Grid item xs={12}>
-                            <ControlTextField multiline name="description" control={control} label="Description" fullWidth={true} />
+                            <VMuiTextEditor setValue={setValue} fieldName="description" label="Description" fullWidth={true} />
                         </Grid>
                         <Grid item xs={12}>
                             <Dropzone
