@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const MyObjectId = mongoose.Types.ObjectId;
 
-let status = ['DRAFT', 'SELLING', 'SOLD', 'SHIPPED'] 
+let status = ['DRAFT', 'SELLING', 'SOLD', 'SHIPPED']
 
 const stampSchema = mongoose.Schema({
     name: {
@@ -27,23 +27,29 @@ const stampSchema = mongoose.Schema({
         required: true,
         default: 0
     },
-    status:{
+    status: {
         type: String,
         enum: status,
         required: true,
         default: status[0]
     },
-    seller:{
+    seller: {
         type: MyObjectId,
         ref: 'User',
         required: true
     },
-    isBlocked:{
+    isBlocked: {
         type: Date
     },
-    blockingUser:{
+    blockingUser: {
         type: MyObjectId,
         ref: 'User'
+    },
+    year: {
+        type: Number
+    },
+    state: {
+        type: String
     }
 
 

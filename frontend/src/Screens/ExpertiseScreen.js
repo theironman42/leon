@@ -55,9 +55,7 @@ function ExpertiseScreen(props) {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <Typography className={classes.expertiseTitle} variant='h6' >Description </Typography>
-                    <p>
-                        {expertise.description}
-                    </p>
+                    <p dangerouslySetInnerHTML={{__html: expertise.description}} ></p>
                 </Grid>
             </Grid>
         </Container>

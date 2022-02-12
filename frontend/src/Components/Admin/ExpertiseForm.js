@@ -33,7 +33,7 @@ function ExpertiseForm({
                             <ControlTextField name="reference" control={control} label="Ref" fullWidth={true} />
                         </Grid>
                         <Grid item xs={12}>
-                            <VMuiTextEditor setValue={setValue} fieldName="description" label="Description" fullWidth={true} />
+                            <VMuiTextEditor setValue={setValue} name="description" label="Description" fullWidth={true} />
                         </Grid>
                         <Grid item xs={12}>
                             <Dropzone

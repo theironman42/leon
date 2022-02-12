@@ -15,8 +15,28 @@ const getStamps = asyncHandler(async (req, res) => {
 //POST add a stamp to the db
 // @route /api/stamps
 const addStamp = asyncHandler(async (req, res) => {
-    const { name, images, country, description, price, reference, user, status } = req.body
-    const stamp = await Stamp.create({ name, images, country, description, price, reference, seller: req.user._id, status })
+    const { name,
+        images,
+        country,
+        description,
+        price,
+        reference,
+        user,
+        status,
+        year,
+        state } = req.body
+    const stamp = await Stamp.create({
+        name,
+        images,
+        country,
+        description,
+        price,
+        reference,
+        seller: user._id,
+        status,
+        year,
+        state
+    })
     res.status(200).json(stamp)
 })
 
@@ -54,15 +74,17 @@ const updateStamp = asyncHandler(async (req, res) => {
         stamp.price = req.body.price || stamp.price
         stamp.reference = req.body.reference || stamp.reference
         stamp.status = req.body.status || stamp.status
+        stamp.year = req.body.year || stamp.state
+        stamp.state = req.body.state || stamp.state
         stamp.images = imagesArray
         try {
             const updatedStamp = await stamp.save()
             res.status(200).json(updatedStamp)
         } catch (error) {
             console.log(error)
-            res.status(500).json({error:{message: error._message}})
+            res.status(500).json({ error: { message: error._message } })
         }
-        
+
     } else {
         res.status(404)
         throw new Error("Stamp not found")

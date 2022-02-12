@@ -63,7 +63,7 @@ function ProductScreen({ match, history }) {
 
     return !product ? <div>loading</div> :
         <Container>
-            ProductScreen of {product.name}
+            <h1>{product.name}</h1>
             <Grid container>
                 <Grid item xs={12} md={8}>
                     <Grid container className={classes.ImagesGrid}>

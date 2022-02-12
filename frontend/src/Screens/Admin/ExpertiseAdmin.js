@@ -68,7 +68,7 @@ function ExpertsAdmin() {
                 data={query => new Promise((resolve, reject) => {
                     let url = "/api/expertise?";
                     url += "pageSize=" + query.pageSize;
-                    url += "&pageNumber=" + (query.page);
+                    url += "&pageNumber=" + (query.page+1);
                     getData(url, token)
                         .then(({ data }) => {
                             const result = data

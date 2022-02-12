@@ -2,7 +2,7 @@ import { Box, Button, Container, Grid } from '@material-ui/core'
 import React from 'react'
 import { useForm, FormProvider } from "react-hook-form"
 import { makeStylesGlobal } from '../../theme/GlobalTheme'
-import { ControlSelect, ControlTextField } from '../ControlFields'
+import { ControlSelect, ControlTextField, VMuiTextEditor } from '../ControlFields'
 import Dropzone from '../Dropzone'
 
 const useStyles = makeStylesGlobal(()=>{})
@@ -22,6 +22,8 @@ function StampForm({
         reference: data ? data.reference : "",
         images: data ? data.images : [],
         status: data ? data.status : 'DRAFT',
+        year: data ? data.year : "",
+        state: data ? data.state : ""
         
     }
     const methods = useForm({ defaultValues })
@@ -46,8 +48,11 @@ function StampForm({
                         <Grid item xs={12} md={6}>
                             <ControlTextField name="price" control={control} required={true} type="number" label="Price" fullWidth={true} error={!!errors.price} />
                         </Grid>
-                        <Grid item xs={12}>
-                            <ControlTextField name="description" control={control} label="Description" fullWidth={true} />
+                        <Grid item xs={12} md={6}>
+                            <ControlTextField name="year" control={control} label="Year" fullWidth={true} type="number" />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <ControlTextField name="state" control={control} label="State" fullWidth={true} />
                         </Grid>
                         <Grid item xs={12}>
                         <ControlSelect
@@ -58,6 +63,10 @@ function StampForm({
                                 fullWidth={true}
                                 values={['DRAFT', 'SELLING', 'SOLD', 'SHIPPED']}
                                 error={!!errors.status} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            {/* <ControlTextField multiline name="description" control={control} label="Description" fullWidth={true} /> */}
+                            <VMuiTextEditor name="description" label="Description" fullWidth={true} />
                         </Grid>
                         <Grid item xs={12}>
                             <Dropzone

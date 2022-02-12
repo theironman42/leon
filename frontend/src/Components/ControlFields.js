@@ -33,7 +33,7 @@ export const ControlSelect = ({ name, control, required, rules, values, ...props
     />
 }
 
-export const VMuiTextEditor = ({ isShort, fieldName: name, label, validation, isNew }) => {
+export const VMuiTextEditor = ({ isShort, name, label, validation, isNew }) => {
     const methods = useFormContext();
     const { register, watch, setValue } = methods;
 
