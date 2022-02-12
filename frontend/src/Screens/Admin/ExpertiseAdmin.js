@@ -1,4 +1,4 @@
-import MaterialTable, { MTableToolbar } from 'material-table'
+import MaterialTable, { MTableToolbar, MTableBodyRow } from 'material-table'
 import React, { useEffect, useRef, useState } from 'react'
 import { getData, postData, putData } from '../../Utils/backend'
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -63,7 +63,6 @@ function ExpertsAdmin() {
                 }}
                 tableRef={tableRef}
                 columns={[
-                    { title: "Image", field: "image" },
                     { title: "Reference", field: "reference" },
                 ]}
                 data={query => new Promise((resolve, reject) => {

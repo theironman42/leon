@@ -21,7 +21,7 @@ function ExpertiseListing(props) {
     const classes = useStyles()
     const [expertiseList, setExpertiseList] = useState(undefined)
     const urlParams = new URLSearchParams(props.location.search)
-    const pageNumber = (urlParams && urlParams.get('pageNumber')) || 0
+    const pageNumber = (urlParams && urlParams.get('pageNumber')) || 1
     
 
     useEffect(() => {
@@ -36,7 +36,7 @@ function ExpertiseListing(props) {
             <Grid container spacing={3}>
                 {expertiseList && expertiseList.data.map((item, index) => (
                     <Grid item xs={12} md={6} key={index}>
-                        <Card onClick={() => console.log("clicked")}>
+                        <Card onClick={() => props.history.push(`/expertise/${item._id}`)}>
                             <CardMedia
                                 component='img'
                                 title="expertise"
@@ -58,7 +58,7 @@ function ExpertiseListing(props) {
                 rowsPerPage={8}
                 count={expertiseList.total}
                 page={expertiseList.page}
-                onChangePage={(event, newPage)=>{console.log(newPage);props.history.push(`/?pageNumber=${newPage}`)}}
+                onChangePage={(event, newPage)=>{props.history.push(`/?pageNumber=${newPage+1}`)}}
             />
         </Container>
     ) :

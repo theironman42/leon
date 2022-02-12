@@ -1,5 +1,6 @@
 import Expertise from "../models/expertiseModels.js"
 import asyncHandler from 'express-async-handler'
+import { unlinkAsync } from '../routes/uploadRoutes.js'
 
 //POST add an expertise to the db
 // @route POST /api/admin/expertise
@@ -29,8 +30,8 @@ const deleteExpertise = asyncHandler(async (req, res) => {
 const getExpertises = asyncHandler(async (req, res) => {
     const query = Expertise.find({})
     const count = await Expertise.find().merge(query).countDocuments()
-    const expertises = await query.skip(req.query.pageSize * (req.query.pageNumber)).limit(Number(req.query.pageSize))
-    const data = { "data": expertises, total: count, page: Number(req.query.pageNumber) }
+    const expertises = await query.skip(req.query.pageSize * (req.query.pageNumber - 1)).limit(Number(req.query.pageSize))
+    const data = { "data": expertises, total: count, page: Number(req.query.pageNumber - 1) }
     res.status(200).json(data)
 })
 
@@ -42,9 +43,9 @@ const updateExpertise = asyncHandler(async (req, res) => {
     const { id } = req.params
     const expertise = await Expertise.findById(id)
     if (expertise) {
-        let newImage = req.body.image;
-        if (newImage !== expertise) {
-            unlinkAsync(`uploads/${expertise.slice(7)}`)
+        let newImage = req.body.image[0];
+        if (newImage !== expertise.image ) {
+            unlinkAsync(`uploads/${expertise.image.slice(7)}`)
         }
 
         expertise.description = req.body.description || expertise.description

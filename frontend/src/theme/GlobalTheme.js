@@ -58,7 +58,8 @@ export const GlobalStylesAppend = (newStyle, theme) => ({
 
     },
     title:{
-        fontFamily: "GreatVibes-Regular"  
+        fontFamily: "GreatVibes-Regular",
+        margin: '10px'
     },
     ...newStyle
 })
