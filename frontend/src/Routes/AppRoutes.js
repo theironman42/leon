@@ -18,7 +18,7 @@ function AppRoutes(props) {
         <>
         <CssBaseline />
         <HeadToolBar />
-        {/* <Navbar /> */}
+        <Navbar />
         <Switch>
           <Route path="/register" component={RegisterUser} />
           <Route path="/profile" component={ProfileScreen} />
@@ -27,7 +27,8 @@ function AppRoutes(props) {
           <Route path='/cart' component={CartScreen} />
           <Route path="/product/:id" component={ProductScreen} />
           <Route path="/store" component={Store} />
-          <Route path="/" component={ExpertiseListing} />
+          <Route path="/expertising" component={ExpertiseListing} />
+          <Route path="/" component={Store} />
 
         </Switch>
         </>

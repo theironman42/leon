@@ -23,7 +23,6 @@ function ExpertiseForm({
     const { handleSubmit, control } = methods
     const onSubmit = formData => { onClose(); onUpdate({ ...data, ...formData }) }
 
-    console.log(classes)
     return (
         <Container>
             <h1>Expertise Form</h1>

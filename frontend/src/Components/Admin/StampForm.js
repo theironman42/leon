@@ -28,7 +28,6 @@ function StampForm({
     const { handleSubmit, control, formState: { errors } } = methods
     const onSubmit = formData => { onClose(); onUpdate({...data, ...formData}) }
 
-    console.log(classes)
     return (
         <Container>
             <h1>Stamp Form</h1>

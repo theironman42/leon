@@ -73,7 +73,6 @@ function UsersListing(props) {
 
             />
             <button onClick={() => {
-                console.log(tableRef.current)
                 tableRef.current.onToggleDetailPanel([0], rowData => <div>{rowData.name}</div>)
             }}>toggle second line</button>
         </div>

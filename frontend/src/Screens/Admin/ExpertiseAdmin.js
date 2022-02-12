@@ -1,9 +1,9 @@
 import MaterialTable, { MTableToolbar } from 'material-table'
 import React, { useEffect, useRef, useState } from 'react'
-import { deleteData, getData, postData, putData } from '../../Utils/backend'
+import { getData, postData, putData } from '../../Utils/backend'
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Button, Dialog } from '@material-ui/core'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { makeStylesGlobal } from '../../theme/GlobalTheme';
 import ExpertiseForm from '../../Components/Admin/ExpertiseForm';
 
@@ -20,7 +20,6 @@ function ExpertsAdmin() {
     const token = userLogin && userLogin.userInfo && userLogin.userInfo.token
     const classes = useStyles()
     const tableRef = useRef();
-    const dispatch = useDispatch();
     useEffect(() => {
 
         return () => {
@@ -70,7 +69,7 @@ function ExpertsAdmin() {
                 data={query => new Promise((resolve, reject) => {
                     let url = "/api/expertise?";
                     url += "pageSize=" + query.pageSize;
-                    url += "&pageNumber=" + (query.page + 1);
+                    url += "&pageNumber=" + (query.page);
                     getData(url, token)
                         .then(({ data }) => {
                             const result = data

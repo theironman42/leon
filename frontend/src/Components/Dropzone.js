@@ -36,7 +36,6 @@ const Dropzone = ({ name, isNew, images, oneOnly, ...props }) => {
         }
       }).then((res) => {
         const newFiles = (!!files?.length && [...files].concat(res.data)) || res.data;
-        console.log("Upload image files", newFiles)
         setValue(name, oneOnly ? [newFiles[0]] : newFiles, { shouldValidate: true });
       })
     },

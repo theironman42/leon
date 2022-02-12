@@ -14,8 +14,6 @@ function RegisterUser(props) {
         dispatch(register(data))
     }
 
-    console.log("register: ", userInfo)
-
     useEffect(() => {
         if (userInfo) {
             props.history.push('/profile')

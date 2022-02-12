@@ -41,7 +41,6 @@ const deleteStamp = asyncHandler(async (req, res) => {
 const updateStamp = asyncHandler(async (req, res) => {
     const { id } = req.params
     const stamp = await Stamp.findById(id)
-    console.log("passed here ", req.body.status)
     if (stamp) {
         let imagesArray = req.body.images || stamp.images
         let removedImages = stamp.images.filter(x => !imagesArray.includes(x))
